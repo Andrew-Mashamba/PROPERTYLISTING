@@ -24,8 +24,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => "2025-10-17 12:03:47",
                 'phone' => null,
                 'role' => "seller",
-                'kyc_document' => null,
-                'status' => "pending",
+                'kyc_status' => "pending",
+                'kyc_notes' => null,
             ],
             [
                 'name' => "Mike Materials Supplier",
@@ -37,8 +37,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => "2025-10-17 12:03:47",
                 'phone' => null,
                 'role' => "supplier",
-                'kyc_document' => null,
-                'status' => "pending",
+                'kyc_status' => "pending",
+                'kyc_notes' => null,
             ],
             [
                 'name' => "Lisa Property Landlord",
@@ -50,8 +50,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => "2025-10-17 12:03:47",
                 'phone' => null,
                 'role' => "landlord",
-                'kyc_document' => null,
-                'status' => "pending",
+                'kyc_status' => "pending",
+                'kyc_notes' => null,
             ],
             [
                 'name' => "Savanna System Manager",
@@ -63,8 +63,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => "2025-10-19 14:53:59",
                 'phone' => null,
                 'role' => "savanna",
-                'kyc_document' => "kyc-documents/ZFiN4LMnhbNufBauIFFyMmJlSe2qCuRGwE9EvDOb.jpg",
-                'status' => "pending",
+                'kyc_status' => "pending",
+                'kyc_notes' => null,
             ],
             [
                 'name' => "Roary Willis",
@@ -76,8 +76,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => "2025-10-20 07:24:12",
                 'phone' => null,
                 'role' => "supplier",
-                'kyc_document' => null,
-                'status' => "pending",
+                'kyc_status' => "pending",
+                'kyc_notes' => null,
             ],
             [
                 'name' => "Andrew Mashamba",
@@ -89,8 +89,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => "2025-10-22 08:25:43",
                 'phone' => null,
                 'role' => "savanna",
-                'kyc_document' => null,
-                'status' => "pending",
+                'kyc_status' => "pending",
+                'kyc_notes' => null,
             ],
             [
                 'name' => "Grace Hendrix",
@@ -102,8 +102,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => "2025-10-22 08:42:00",
                 'phone' => null,
                 'role' => "agent",
-                'kyc_document' => null,
-                'status' => "pending",
+                'kyc_status' => "pending",
+                'kyc_notes' => null,
             ],
         ]);
 
