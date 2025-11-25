@@ -351,7 +351,7 @@
     <!-- Hero Section with Sidebar -->
     <div class="hero-layout">
         <!-- Department Sidebar -->
-        <div class="department-sidebar">
+        {{--<div class="department-sidebar">
             <button class="departments-btn">
                 <span>All Departments</span>
                 <svg class="dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -371,7 +371,7 @@
                 <a href="#" class="department-item">Insulation</a>
                 <a href="#" class="department-item">Flooring</a>
             </div>
-        </div>
+        </div>--}}
 
         <!-- Hero Banner -->
        {{-- <div class="hero-banner">
