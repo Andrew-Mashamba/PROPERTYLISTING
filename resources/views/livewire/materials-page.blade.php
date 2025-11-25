@@ -374,7 +374,7 @@
         </div>
 
         <!-- Hero Banner -->
-        <div class="hero-banner">
+       {{-- <div class="hero-banner">
             <div class="banner-content">
                 <div class="banner-text">
                     <span class="banner-tag">PREMIUM QUALITY</span>
@@ -387,7 +387,7 @@
                     <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop" alt="Building Materials">
                 </div>
             </div>
-        </div>
+        </div>--}}
     </div>
 
 
@@ -1873,123 +1873,6 @@
 
     </div>
     
-
-
-    <!-- Promotional Banners -->
-    <div class="promotional-bannersx mt-10">
-        <div class="banners-content">
-            <div class="promo-banner promo-left">
-                <div class="promo-content">
-                    <div class="promo-text">
-                        <span class="promo-tag">PREMIUM STEEL</span>
-                        <h3 class="promo-title">Steel & Metal</h3>
-                        <p class="promo-subtitle">100% Professional Grade Steel</p>
-                        <button class="promo-btn">SHOP NOW</button>
-                    </div>
-                    <div class="promo-image">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop" alt="Steel Materials">
-                    </div>
-                </div>
-            </div>
-            <div class="promo-banner promo-right">
-                <div class="promo-content">
-                    <div class="promo-text">
-                        <span class="promo-tag">CONCRETE & CEMENT</span>
-                        <h3 class="promo-title">Building Materials</h3>
-                        <p class="promo-subtitle">With 25% Off All Concrete</p>
-                        <button class="promo-btn">SHOP NOW</button>
-                    </div>
-                    <div class="promo-image">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop" alt="Concrete Materials">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Latest/Top Rated Materials -->
-    <div class="materials-sections">
-        <div class="sections-content">
-            <div class="materials-section">
-                <h3 class="section-title">Latest Materials</h3>
-                <div class="materials-list">
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">Steel Rebar 12mm</h4>
-                            <span class="material-price">$45.50</span>
-                        </div>
-                    </div>
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">Concrete Mix C25/30</h4>
-                            <span class="material-price">$120.00</span>
-                        </div>
-                    </div>
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">Red Clay Bricks</h4>
-                            <span class="material-price">$0.85</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="materials-section">
-                <h3 class="section-title">Top Rated</h3>
-                <div class="materials-list">
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">Steel I-Beam 200x100mm</h4>
-                            <span class="material-price">$85.00</span>
-                        </div>
-                    </div>
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">Roofing Sheets</h4>
-                            <span class="material-price">$25.00</span>
-                        </div>
-                    </div>
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">PVC Pipes 110mm</h4>
-                            <span class="material-price">$15.50</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="materials-section">
-                <h3 class="section-title">Review Products</h3>
-                <div class="materials-list">
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">Electrical Cable 2.5mm²</h4>
-                            <span class="material-price">$3.20</span>
-                        </div>
-                    </div>
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">Cement Portland Type I</h4>
-                            <span class="material-price">$8.50</span>
-                        </div>
-                    </div>
-                    <div class="material-item">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=80&h=80&fit=crop" alt="Material">
-                        <div class="material-info">
-                            <h4 class="material-name">Insulation Materials</h4>
-                            <span class="material-price">$12.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <style>
         .services-section {
