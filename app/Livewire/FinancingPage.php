@@ -23,6 +23,10 @@ class FinancingPage extends Component
     public $loan_amount;
     public $loan_tenure_months;
     public $additional_info;
+    public $calculator_amount;
+    public $calculator_tenure_months;
+    public $calculator_interest_rate;
+    public $calculator_monthly_income;
 
     public function mount()
     {
@@ -38,6 +42,11 @@ class FinancingPage extends Component
             ->orderBy('interest_rate', 'asc')
             ->get();
 
+        $this->calculator_amount = $this->property->price * 0.8;
+        $this->calculator_tenure_months = 240;
+        $this->calculator_interest_rate = optional($this->loanProducts->first())->interest_rate ?? 10;
+        $this->calculator_monthly_income = null;
+
         if (auth()->check()) {
             $this->full_name = auth()->user()->name;
             $this->email = auth()->user()->email;
@@ -48,6 +57,9 @@ class FinancingPage extends Component
     {
         $this->selectedLoanProduct = LoanProduct::with('bank')->find($productId);
         $this->loan_amount = $this->property->price * 0.8;
+        if ($this->selectedLoanProduct) {
+            $this->calculator_interest_rate = $this->selectedLoanProduct->interest_rate;
+        }
     }
 
     public function submitFinancingInquiry()
@@ -56,14 +68,17 @@ class FinancingPage extends Component
             return redirect()->route('login');
         }
 
-        $this->validate([
+       $this->validate([
             'full_name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required|string',
-            'monthly_income' => 'required|numeric|min:0',
-            'employment_status' => 'required|string',
+            // 'monthly_income' => 'required|numeric|min:0',
             'loan_amount' => 'required|numeric|min:0',
-            'loan_tenure_months' => 'required|integer|min:12|max:360',
+            // 'loan_tenure_months' => 'required|integer|min:12|max:360',
+            'calculator_amount' => 'required|numeric|min:0',
+            'calculator_tenure_months' => 'required|integer|min:12|max:360',
+            'calculator_interest_rate' => 'required|numeric|min:0',
+            'calculator_monthly_income' => 'required|numeric|min:0',
         ]);
 
         FinancingInquiry::create([
@@ -73,10 +88,10 @@ class FinancingPage extends Component
             'full_name' => $this->full_name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'monthly_income' => $this->monthly_income,
-            'employment_status' => $this->employment_status,
-            'loan_amount' => $this->loan_amount,
-            'loan_tenure_months' => $this->loan_tenure_months,
+            'monthly_income' => $this->calculator_monthly_income,
+            'employment_status' => 'N/A',
+            'loan_amount' => $this->calculator_amount,
+            'loan_tenure_months' => $this->calculator_tenure_months,
             'additional_info' => $this->additional_info,
             'status' => 'pending',
         ]);
@@ -100,7 +115,7 @@ class FinancingPage extends Component
                 'to_user_id' => $admin->id,
                 'property_id' => $this->propertyId,
                 'subject' => 'New Financing Application',
-                'message' => "A new financing inquiry has been submitted.\n\nProperty: {$this->property->title}\nSeller: {$this->property->user->name}\nLoan Product: {$this->selectedLoanProduct->name} ({$this->selectedLoanProduct->bank->name})\nLoan Amount: TZS " . number_format($this->loan_amount) . "\nTenure: {$this->loan_tenure_months} months\n\nApplicant: {$this->full_name}\nEmail: {$this->email}\nPhone: {$this->phone}\nMonthly Income: TZS " . number_format($this->monthly_income) . "\nEmployment: {$this->employment_status}",
+                'message' => "A new financing inquiry has been submitted.\n\nProperty: {$this->property->title}\nSeller: {$this->property->user->name}\nLoan Product: {$this->selectedLoanProduct->name} ({$this->selectedLoanProduct->bank->name})\nLoan Amount: TZS " . number_format($this->calculator_amount) . "\nTenure: {$this->calculator_tenure_months} months\n\nApplicant: {$this->full_name}\nEmail: {$this->email}\nPhone: {$this->phone}\nMonthly Income: TZS " . number_format($this->calculator_monthly_income) . "\nEmployment: N/A",
                 'contact_email' => $this->email,
                 'contact_phone' => $this->phone,
                 'status' => 'new',
@@ -108,12 +123,13 @@ class FinancingPage extends Component
             ]);
         }
 
-        $this->reset(['full_name', 'email', 'phone', 'monthly_income', 'employment_status', 'loan_amount', 'loan_tenure_months', 'additional_info']);
+        $this->reset(['full_name', 'email', 'phone', 'monthly_income', 'loan_amount', 'loan_tenure_months', 'additional_info']);
         $this->selectedLoanProduct = null;
         
         session()->flash('message', 'Your financing inquiry has been submitted successfully! Both the property owner and our admin team have been notified.');
         
         $this->dispatch('financing-submitted');
+
     }
 
     public function calculateMonthlyPayment($loanAmount, $interestRate, $tenureMonths)

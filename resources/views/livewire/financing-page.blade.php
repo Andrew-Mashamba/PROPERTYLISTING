@@ -253,6 +253,7 @@
             </div>
 
             <div class="w-2/3 space-y-6">
+                <!-- Financing products / form -->
                 @if(!$selectedLoanProduct)
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="flex items-center gap-3 mb-6">
@@ -342,10 +343,73 @@
                             <p class="text-xs text-purple-700 mb-1">Max Tenure</p>
                             <p class="text-2xl font-bold text-purple-600">{{ $selectedLoanProduct->max_tenure_months / 12 }} yrs</p>
                         </div>
-                    </div>
+                    </div>                    
 
                     <form wire:submit.prevent="submitFinancingInquiry" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                    <div class="bg-white mb-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h5 class="text-gray-800 font-semibold text-sm">Quick Loan Calculator</h5>
+                                <p class="text-gray-500 text-xs">Adjust figures to preview payments before submitting</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div>
+                                <label class="block text-gray-700 font-medium text-xs mb-1">Loan Amount (TZS)</label>
+                                <input wire:model.live="calculator_amount" type="number" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-700">
+                                <p class="text-[11px] text-gray-500 mt-1">Recommended: {{ number_format($property->price * 0.8) }}</p>
+                                @error('calculator_amount') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium text-xs mb-1">Tenure (Months)</label>
+                                <input wire:model.live="calculator_tenure_months" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-700">                                    
+                                <p class="text-[11px] text-gray-500 mt-1">Recommended: 240 months</p>
+                                @error('calculator_tenure_months') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium text-xs mb-1">Interest Rate</label>
+                                <input wire:model.live="calculator_interest_rate" type="number" step="0.01" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-700">
+                                <p class="text-[11px] text-gray-500 mt-1">Default uses selected product rate</p>
+                                @error('calculator_interest_rate') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium text-xs mb-1">Monthly Income (TZS) <span class="text-red-500">*</span></label>
+                                <input wire:model.live="calculator_monthly_income" type="number" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-700">
+                                <p class="text-[11px] text-gray-500 mt-1">Used for quick affordability check</p>
+                                @error('calculator_monthly_income') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+
+                        @if($calculator_amount && $calculator_tenure_months && $calculator_interest_rate !== null)
+                        <div class="mt-4 p-3 rounded-lg bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200">
+                            <p class="text-sm font-semibold text-orange-900 mb-1">Estimated Monthly Payment</p>
+                            <p class="text-2xl font-bold text-orange-600">TZS {{ number_format($this->calculateMonthlyPayment($calculator_amount, $calculator_interest_rate, $calculator_tenure_months)) }}</p>
+                            <p class="text-[11px] text-orange-700 mt-1">Based on {{ $calculator_interest_rate }}% interest over {{ $calculator_tenure_months }} months</p>
+                            @if($calculator_monthly_income)
+                            @php
+                                $estimatedPayment = $this->calculateMonthlyPayment($calculator_amount, $calculator_interest_rate, $calculator_tenure_months);
+                                $incomeShare = $calculator_monthly_income > 0 ? ($estimatedPayment / $calculator_monthly_income) * 100 : null;
+                            @endphp
+                            @if($incomeShare !== null)
+                            <div class="mt-3 p-3 rounded-lg {{ $incomeShare <= 40 ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-red-50 border border-red-200 text-red-800' }}">
+                                <p class="text-xs font-semibold">Affordability: ~{{ number_format($incomeShare, 1) }}% of income</p>
+                                <p class="text-[11px]">{{ $incomeShare <= 40 ? 'Within a typical safe range (≤40%).' : 'Above typical safe range; consider lowering amount or extending tenure.' }}</p>
+                            </div>
+                            @endif
+                            @endif
+                        </div>
+                        @endif
+                    </div>
+                    
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-1 gap-4">
                             <div>
                                 <label class="block text-gray-700 font-medium text-sm mb-2">Full Name <span class="text-red-500">*</span></label>
                                 <input wire:model="full_name" type="text" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
@@ -364,51 +428,13 @@
                                 @error('phone') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
                             </div>
 
-                            <div>
-                                <label class="block text-gray-700 font-medium text-sm mb-2">Monthly Income (TZS) <span class="text-red-500">*</span></label>
-                                <input wire:model="monthly_income" type="number" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
-                                @error('monthly_income') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
-                            </div>
-
-                            <div>
-                                <label class="block text-gray-700 font-medium text-sm mb-2">Employment Status <span class="text-red-500">*</span></label>
-                                <select wire:model="employment_status" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
-                                    <option value="">Select status</option>
-                                    <option value="Employed Full-Time">Employed Full-Time</option>
-                                    <option value="Employed Part-Time">Employed Part-Time</option>
-                                    <option value="Self-Employed">Self-Employed</option>
-                                    <option value="Business Owner">Business Owner</option>
-                                    <option value="Retired">Retired</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                                @error('employment_status') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
-                            </div>
-
-                            <div>
-                                <label class="block text-gray-700 font-medium text-sm mb-2">Loan Amount (TZS) <span class="text-red-500">*</span></label>
-                                <input wire:model="loan_amount" type="number" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
-                                @error('loan_amount') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
-                                <p class="text-xs text-gray-500 mt-1">Recommended: TZS {{ number_format($property->price * 0.8) }} (80% of property price)</p>
-                            </div>
-
-                            <div>
-                                <label class="block text-gray-700 font-medium text-sm mb-2">Loan Tenure (Months) <span class="text-red-500">*</span></label>
-                                <select wire:model="loan_tenure_months" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
-                                    <option value="">Select tenure</option>
-                                    <option value="60">5 years (60 months)</option>
-                                    <option value="120">10 years (120 months)</option>
-                                    <option value="180">15 years (180 months)</option>
-                                    <option value="240">20 years (240 months)</option>
-                                    <option value="300">25 years (300 months)</option>
-                                </select>
-                                @error('loan_tenure_months') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
-                            </div>
-
                             <div class="md:col-span-2">
                                 <label class="block text-gray-700 font-medium text-sm mb-2">Additional Information (Optional)</label>
                                 <textarea wire:model="additional_info" rows="3" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700" placeholder="Any additional information you'd like to share..."></textarea>
                             </div>
                         </div>
+
+                       
 
                         @if($loan_amount && $loan_tenure_months)
                         <div class="p-4 rounded-lg bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-300">
