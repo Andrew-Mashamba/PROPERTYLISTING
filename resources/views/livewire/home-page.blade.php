@@ -32,68 +32,68 @@
 
                     {{-- Advanced Filters Panel --}}
                     <div x-show="showFilters" x-transition class="bg-card border border-border rounded-xl p-6 mt-4 shadow-lg">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {{-- Price Range --}}
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-foreground">Min Price</label>
-                                <input type="number" wire:model.live.debounce.300ms="minPrice" class="w-full border border-border rounded-md px-3 py-2 bg-background" placeholder="Min Price">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-foreground">Max Price</label>
-                                <input type="number" wire:model.live.debounce.300ms="maxPrice" class="w-full border border-border rounded-md px-3 py-2 bg-background" placeholder="Max Price">
-                            </div>
-                            
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-foreground">Min Price</label>
+                    <input type="number" wire:model.live.debounce.300ms="minPrice" class="w-full border border-border rounded-md px-3 py-2 bg-background" placeholder="Min Price">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-foreground">Max Price</label>
+                    <input type="number" wire:model.live.debounce.300ms="maxPrice" class="w-full border border-border rounded-md px-3 py-2 bg-background" placeholder="Max Price">
+                </div>
+                
                             {{-- Bedrooms --}}
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-foreground">Bedrooms</label>
-                                <select wire:model.live="bedrooms" class="w-full border border-border rounded-md px-3 py-2 bg-background">
-                                    <option value="">Any</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                    <option value="5">5+</option>
-                                </select>
-                            </div>
-                            
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-foreground">Bedrooms</label>
+                    <select wire:model.live="bedrooms" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                        <option value="">Any</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                    </select>
+                </div>
+                
                             {{-- Bathrooms --}}
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-foreground">Bathrooms</label>
-                                <select wire:model.live="bathrooms" class="w-full border border-border rounded-md px-3 py-2 bg-background">
-                                    <option value="">Any</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-foreground">Bathrooms</label>
+                    <select wire:model.live="bathrooms" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                        <option value="">Any</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                             {{-- Property Type --}}
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-foreground">Property Type</label>
-                                <select wire:model.live="propertyType" class="w-full border border-border rounded-md px-3 py-2 bg-background">
-                                    <option value="">All Types</option>
-                                    @foreach($propertyTypes as $type)
-                                        <option value="{{ $type }}">{{ $type }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-foreground">Property Type</label>
+                    <select wire:model.live="propertyType" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                        <option value="">All Types</option>
+                        @foreach($propertyTypes as $type)
+                            <option value="{{ $type }}">{{ $type }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
                             {{-- Sort By --}}
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-foreground">Sort By</label>
-                                <select wire:model.live="sortBy" class="w-full border border-border rounded-md px-3 py-2 bg-background">
-                                    <option value="created_at">Newest</option>
-                                    <option value="price">Price</option>
-                                    <option value="bedrooms">Bedrooms</option>
-                                    <option value="sqft">Square Feet</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-border">
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-foreground">Sort By</label>
+                    <select wire:model.live="sortBy" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                        <option value="created_at">Newest</option>
+                        <option value="price">Price</option>
+                        <option value="bedrooms">Bedrooms</option>
+                        <option value="sqft">Square Feet</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-border">
                             <button type="button" wire:click="clearFilters" class="px-4 py-2 rounded-md border border-border hover:bg-secondary">Reset Filters</button>
                             <button type="button" @click="showFilters = false" class="px-4 py-2 rounded-md bg-primary text-primary-foreground">Apply Filters</button>
                         </div>
@@ -105,9 +105,9 @@
                             <i class="lucide lucide-sliders-horizontal w-4 h-4"></i>
                             <span class="hidden sm:inline">Filters</span>
                         </button>
-                    </div>
-                </div>
             </div>
+        </div>
+    </div>
 
             {{-- Quick Stats --}}
             <div class="flex flex-wrap justify-center gap-8 md:gap-16 mt-12">
@@ -170,29 +170,40 @@
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
                 @php
-                    $propertyTypeIcons = [
-                        'House' => 'home',
-                        'Apartment' => 'building-2',
-                        'Condo' => 'building',
-                        'Townhouse' => 'warehouse',
-                        'Land' => 'tree-pine',
-                        'Luxury' => 'castle',
+                    $propertyTypeConfig = [
+                        'House' => ['icon' => 'home', 'description' => 'Single-family homes'],
+                        'Houses' => ['icon' => 'home', 'description' => 'Single-family homes'],
+                        'Apartment' => ['icon' => 'building-2', 'description' => 'Urban living spaces'],
+                        'Apartments' => ['icon' => 'building-2', 'description' => 'Urban living spaces'],
+                        'Condo' => ['icon' => 'building', 'description' => 'Modern condominiums'],
+                        'Condos' => ['icon' => 'building', 'description' => 'Modern condominiums'],
+                        'Townhouse' => ['icon' => 'warehouse', 'description' => 'Multi-level living'],
+                        'Townhouses' => ['icon' => 'warehouse', 'description' => 'Multi-level living'],
+                        'Land' => ['icon' => 'tree-pine', 'description' => 'Build your dream'],
+                        'Luxury' => ['icon' => 'castle', 'description' => 'Premium properties'],
+                        'Residential' => ['icon' => 'home', 'description' => 'Residential properties'],
+                        'Commercial' => ['icon' => 'building-2', 'description' => 'Commercial properties'],
+                        'Industrial' => ['icon' => 'warehouse', 'description' => 'Industrial properties'],
                     ];
                     $displayTypes = $propertyTypes->take(6);
                 @endphp
                 @forelse($displayTypes as $type)
+                    @php
+                        $config = $propertyTypeConfig[$type] ?? ['icon' => 'home', 'description' => $type . ' properties'];
+                        $count = $featuredProperties->where('property_type', $type)->count();
+                    @endphp
                     <button 
                         wire:click="$set('propertyType', '{{ $type }}')" 
                         class="group p-6 bg-card rounded-xl border border-border hover:border-primary hover:shadow-lg transition-all duration-300 text-center"
+                        x-data="{}"
+                        x-init="$nextTick(() => { if (typeof lucide !== 'undefined') { const icon = $el.querySelector('i[data-lucide]'); if (icon) lucide.createIcons(icon); } })"
                     >
                         <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                            <i class="lucide lucide-{{ $propertyTypeIcons[$type] ?? 'home' }} w-7 h-7 text-primary group-hover:text-primary-foreground"></i>
+                            <i class="lucide lucide-{{ $config['icon'] }} w-7 h-7 text-primary group-hover:text-primary-foreground" data-lucide="{{ $config['icon'] }}"></i>
                         </div>
                         <h3 class="font-semibold text-foreground mb-1">{{ $type }}</h3>
-                        <p class="text-sm text-muted-foreground mb-2">{{ $type }} properties</p>
-                        <p class="text-sm font-medium text-primary">
-                            {{ $featuredProperties->where('property_type', $type)->count() }}+ listings
-                        </p>
+                        <p class="text-sm text-muted-foreground mb-2">{{ $config['description'] }}</p>
+                        <p class="text-sm font-medium text-primary">{{ $count }}+ listings</p>
                     </button>
                 @empty
                     <div class="col-span-full text-center py-8">
@@ -200,8 +211,22 @@
                     </div>
                 @endforelse
             </div>
-        </div>
+                </div>
     </section>
+
+    <script>
+        // Ensure Property Types icons are initialized
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+        });
+        document.addEventListener('livewire:update', function() {
+            if (typeof lucide !== 'undefined') {
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+        });
+    </script>
 
     {{-- Why Choose Us --}}
     <section class="py-16 md:py-24 bg-primary text-primary-foreground">
@@ -211,8 +236,8 @@
                 <p class="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
                     We're committed to making your home search experience seamless and enjoyable
                 </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8" x-data="{}" x-init="$nextTick(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); })">
                 @foreach ([
                     ['icon' => 'shield', 'title' => 'Trusted & Secure', 'description' => 'All listings are verified and your transactions are protected with industry-leading security.'],
                     ['icon' => 'clock-3', 'title' => 'Save Time', 'description' => 'Advanced search filters and AI-powered recommendations help you find homes faster.'],
@@ -221,8 +246,8 @@
                 ] as $feature)
                     <div class="text-center p-6 rounded-xl bg-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/15 transition-colors">
                         <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-                            <i class="lucide lucide-{{ $feature['icon'] }} w-8 h-8"></i>
-                        </div>
+                            <i class="lucide lucide-{{ $feature['icon'] }} w-8 h-8" data-lucide="{{ $feature['icon'] }}"></i>
+                </div>
                         <h3 class="text-xl font-semibold mb-3">{{ $feature['title'] }}</h3>
                         <p class="text-primary-foreground/80 leading-relaxed">{{ $feature['description'] }}</p>
                     </div>
@@ -230,6 +255,20 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // Ensure Why Choose Us icons are initialized
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+        });
+        document.addEventListener('livewire:update', function() {
+            if (typeof lucide !== 'undefined') {
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+        });
+    </script>
 
     {{-- Auth Modals --}}
     @livewire('auth-modals')

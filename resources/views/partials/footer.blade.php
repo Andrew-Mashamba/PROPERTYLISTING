@@ -1,6 +1,6 @@
 <footer class="bg-foreground text-background">
     <div class="container py-12 md:py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
             <div>
                 <a href="/" class="flex items-center gap-2 text-background font-bold text-xl mb-4">
                     <i data-lucide="home" class="w-6 h-6"></i>
@@ -54,7 +54,7 @@
                 </p>
                 <div class="flex gap-2">
                     <input type="email" placeholder="Your email" class="bg-background/10 border border-background/20 text-background placeholder:text-background/50 px-3 py-2 rounded-md w-full">
-                    <button class="px-3 py-2 rounded-md bg-secondary text-secondary-foreground">
+                    <button class="px-3 py-2 rounded-md bg-background/10 text-primary-foreground">
                         <i data-lucide="mail" class="w-4 h-4"></i>
                     </button>
                 </div>

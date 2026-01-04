@@ -83,9 +83,21 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         // Initialize Lucide icons after page load
-        document.addEventListener('DOMContentLoaded', function() {
-            lucide.createIcons();
-        });
+        function initLucideIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', initLucideIcons);
+        
+        // Re-initialize after Livewire updates
+        document.addEventListener('livewire:load', initLucideIcons);
+        document.addEventListener('livewire:update', initLucideIcons);
+        document.addEventListener('livewire:navigated', initLucideIcons);
+        
+        // Also listen for Alpine updates
+        document.addEventListener('alpine:init', initLucideIcons);
     </script>
     @stack('scripts')
     </body>
