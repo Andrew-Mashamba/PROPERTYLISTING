@@ -16,6 +16,39 @@ Route::get('/services', function () {
 Route::get('/financing', function () {
     return view('financing');
 })->name('financing');
+Route::get('/property/{id}', function ($id) {
+    $property = \App\Models\Property::with('images', 'user')->findOrFail($id);
+    return view('property', ['property' => $property]);
+})->name('property.show');
+
+Route::post('/inquiry/create', function (\Illuminate\Http\Request $request) {
+    if (!auth()->check()) {
+        return redirect()->route('login');
+    }
+    
+    $request->validate([
+        'property_id' => 'required|exists:properties,id',
+        'subject' => 'required|string|max:255',
+        'message' => 'required|string',
+        'email' => 'required|email',
+    ]);
+    
+    $property = \App\Models\Property::findOrFail($request->property_id);
+    
+    \App\Models\Inquiry::create([
+        'from_user_id' => auth()->id(),
+        'to_user_id' => $property->user_id,
+        'property_id' => $request->property_id,
+        'subject' => $request->subject,
+        'message' => $request->message,
+        'contact_email' => $request->email,
+        'contact_phone' => $request->phone ?? null,
+        'status' => 'new',
+        'priority' => 'normal',
+    ]);
+    
+    return redirect()->back()->with('success', 'Your inquiry has been sent successfully!');
+})->name('inquiry.create')->middleware('auth');
 
 // Force logout and redirect to home
 Route::get('/login', function () {

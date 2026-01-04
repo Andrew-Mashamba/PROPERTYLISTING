@@ -1,1021 +1,252 @@
 <div>
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="top-bar-content">
-            <div class="top-bar-left">
-                <span class="top-bar-text">Free Shipping for orders over 50,000 TZS in materials</span>
-                <span class="top-bar-email">hello@savannaproperty.com</span>
-            </div>
-            <div class="top-bar-right">
-                <div class="social-links">
-                    <a href="#" class="social-link">Facebook</a>
-                    <a href="#" class="social-link">Twitter</a>
-                    <a href="#" class="social-link">LinkedIn</a>
-                </div>
-                <div class="top-bar-actions pr-2">
-                <button wire:click="$dispatch('showLoginModal')" class="top-bar-link text-xl font-bold border-2 border-orange-500 rounded-md px-2 py-1 m-0" style="color: #FF7F00;">Login</button>
-                        <button wire:click="$dispatch('showRegisterModal')" class="top-bar-link text-xl font-bold border-2 border-blue-500 rounded-md px-2 py-1 m-0" style="color: #007BFF;">Sell Property</button>
-                    <button wire:click="$dispatch('showRegisterModal')" class="top-bar-link text-xl font-bold border-2 border-green-500 rounded-md px-2 py-1 m-0" style="color: #28A745;">Post Rental</button>
-                </div>
-            </div>
+    {{-- Hero Section --}}
+    <section class="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center">
+        <div class="absolute inset-0 z-0">
+            <img src="{{ asset('assets/hero-bg.jpg') }}" alt="Beautiful neighborhood" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/40 to-foreground/70"></div>
         </div>
-    </div>
 
-    <!-- Main Header -->
-    <div class="main-header">
-        <div class="header-content">
-            <div class="header-left">
-                <h1 class="main-logo">SAVANNA</h1>
-            </div>
-            <div class="header-center">
-                <nav class="main-nav">
-                    <a href="/" class="nav-item nav-active">BUY</a>
-                    <a href="/rent" class="nav-item">RENT</a>
-                    <a href="/materials" class="nav-item">MATERIALS</a>
-                    <a href="/services" class="nav-item">SERVICES</a>
-                </nav>
-            </div>
-            <div class="header-right">
-                <div class="search-bar">
-                    <select class="search-category mr-4">
-                        <option>All Categories</option>
-                        <option>Residential</option>
-                        <option>Commercial</option>
-                        <option>Land</option>
-                        <option>Investment</option>
-                    </select>
-                    <input type="text" wire:model.live.debounce.300ms="searchQuery" class="search-input mr-4" 
-                    placeholder="Search for properties">
-                    <button class="search-btn">SEARCH</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        <div class="container relative z-10 text-center px-4">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">Find Your Dream Home</h1>
+            <p class="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
+                Discover millions of homes and find the perfect place to call your own
+            </p>
 
-    <style>
-        .content {
-        
-        }
-        .top-bar {
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
-            padding: 0.5rem 0;
-            font-size: 0.875rem;
-            height: 40px;
-        }
-        
-        .top-bar-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .top-bar-left {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .top-bar-text {
-            color: #6C757D;
-        }
-        
-        .top-bar-email {
-            color: #FF7F00;
-        }
-        
-        .top-bar-right {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-link {
-            color: #6C757D;
-            text-decoration: none;
-            font-size: 0.75rem;
-        }
-        
-        .top-bar-actions {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .top-bar-link {
-            color: #6C757D;
-            text-decoration: none;
-            font-size: 0.75rem;
-        }
-        
-        .main-header {
-            background: white;
-            border-bottom: 1px solid #e9ecef;
-            padding: 0.5rem 0;
-            min-height: 60px;
-        }
-        
-        .header-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .main-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #FF7F00;
-            margin: 0;
-        }
-        
-        .main-nav {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .nav-item {
-            color: #333333;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            transition: color 0.2s;
-            padding: 0.25rem 0.5rem;
-        }
-        
-        .nav-item:hover,
-        .nav-active {
-            color: #FF7F00;
-        }
-        
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background: #f8f9fa;
-            border-radius: 0.25rem;
-            padding: 0.25rem;
-        }
-        
-        .search-category {
-            border: none;
-            background: transparent;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.75rem;
-            color: #6C757D;
-        }
-        
-        .search-input {
-            border: none;
-            background: transparent;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.75rem;
-            min-width: 150px;
-        }
-        
-        .search-btn {
-            background: #FF7F00;
-            color: white;
-            border: none;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.25rem;
-            font-weight: 600;
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
-        
-        .nav-container {
-            background: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .nav-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .nav-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 3rem;
-        }
-        
-        .nav-left, .nav-right {
-            display: flex;
-            align-items: center;
-        }
-        
-        .nav-left {
-            gap: 1rem;
-        }
-        
-        .nav-right {
-            gap: 0.75rem;
-        }
-        
-        .nav-link {
-            font-size: 0.875rem;
-            color: #374151;
-            font-weight: 500;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .nav-link:hover {
-            color: #FF7F00;
-        }
-        
-        .nav-link-active {
-            color: #FF7F00 !important;
-            font-weight: 600;
-            position: relative;
-        }
-        
-        .nav-link-active::after {
-            content: '';
-            position: absolute;
-            bottom: -0.5rem;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #FF7F00;
-            border-radius: 1px;
-        }
-        
-        .logo {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #FF7F00;
-        }
-        
-        .btn-dashboard {
-            font-size: 0.75rem;
-            background-color: #FF7F00;
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-        
-        .btn-dashboard:hover {
-            background-color: #e66a00;
-        }
-    </style>
-    
-
-    <style>
-        .hero-section {
-            background: linear-gradient(135deg, #FF7F00 0%, #FF4500 100%);
-            position: relative;
-        }
-        
-        .hero-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 3rem 1rem;
-            position: relative;
-        }
-        
-        .hero-text {
-            text-align: center;
-        }
-        
-        .hero-title {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: white;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.125rem;
-            color: #fed7aa;
-            margin-bottom: 1.5rem;
-        }
-        
-        .search-container {
-            max-width: 28rem;
-            margin: 0 auto;
-        }
-        
-        .search-form {
-            position: relative;
-        }
-        
-        .search-input-group {
-            display: flex;
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
-            border: 0;
-            outline: none;
-            color: #111827;
-        }
-        
-        .search-button {
-            padding: 0.5rem 0.75rem;
-            background-color: #FF7F00;
-            color: white;
-            border: 0;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .search-button:hover {
-            background-color: #e66a00;
-        }
-        
-        .search-icon {
-            width: 1rem;
-            height: 1rem;
-        }
-        
-        
-        .filters-panel {
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .filters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .filter-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 0.25rem;
-        }
-        
-        .filter-input {
-            padding: 0.5rem 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            transition: border-color 0.2s;
-        }
-        
-        .filter-input:focus {
-            outline: none;
-            border-color: #FF7F00;
-            box-shadow: 0 0 0 3px rgba(255, 127, 0, 0.1);
-        }
-        
-        .filter-select {
-            padding: 0.5rem 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            background: white;
-            cursor: pointer;
-        }
-        
-        .filter-actions {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: flex-end;
-        }
-        
-        .btn-clear {
-            padding: 0.5rem 1rem;
-            background: #f3f4f6;
-            color: #374151;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .btn-clear:hover {
-            background: #e5e7eb;
-        }
-        
-    </style>
-    
-    <!-- Hero Section -->
-    <div class="hero-section container mx-auto" style="max-width: 1280px;">
-        <div class="hero-content">
-            <div class="hero-text">
-                <!-- Hero Text -->
-                <h1 class="hero-title">
-                    Find Your Dream Home
-                </h1>
-                <p class="hero-subtitle">Discover properties that match your lifestyle</p>
-                
-                <!-- Advanced Search Bar -->
-                <div class="search-container">
-                    <form wire:submit.prevent="search" class="search-form">
-                        <div class="search-input-group">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-background rounded-xl p-4 shadow-2xl" x-data="{ showFilters: false }">
+                    <form wire:submit.prevent="search" class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <i class="lucide lucide-map-pin absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground"></i>
                             <input 
                                 type="text" 
                                 wire:model.live.debounce.300ms="searchQuery"
-                                placeholder="Enter address, city, or ZIP"
-                                class="search-input"
+                                placeholder="Enter an address, city, or ZIP code" 
+                                class="pl-12 h-14 text-base border border-border bg-secondary/50 rounded-md w-full"
                             >
-                            <button type="submit" class="search-button">
-                                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </button>
                         </div>
+                        <button type="submit" class="h-14 px-8 text-base font-semibold rounded-md bg-primary text-primary-foreground flex items-center justify-center gap-2">
+                            <i class="lucide lucide-search w-5 h-5"></i>
+                            Search
+                        </button>
                     </form>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Advanced Filters Panel -->
-    <div class="filters-panel container mx-auto" style="max-width: 1280px;">
-        <div class="filters-grid">
-            <!-- Price Range -->
-            <div class="filter-group">
-                <label class="filter-label">Min Price</label>
-                <input type="number" wire:model.live.debounce.300ms="minPrice" class="filter-input" placeholder="Min Price">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Max Price</label>
-                <input type="number" wire:model.live.debounce.300ms="maxPrice" class="filter-input" placeholder="Max Price">
-            </div>
-            
-            <!-- Bedrooms -->
-            <div class="filter-group">
-                <label class="filter-label">Bedrooms</label>
-                <select wire:model.live="bedrooms" class="filter-select">
-                    <option value="">Any</option>
-                    <option value="1">1+</option>
-                    <option value="2">2+</option>
-                    <option value="3">3+</option>
-                    <option value="4">4+</option>
-                    <option value="5">5+</option>
-                </select>
-            </div>
-            
-            <!-- Bathrooms -->
-            <div class="filter-group">
-                <label class="filter-label">Bathrooms</label>
-                <select wire:model.live="bathrooms" class="filter-select">
-                    <option value="">Any</option>
-                    <option value="1">1+</option>
-                    <option value="2">2+</option>
-                    <option value="3">3+</option>
-                    <option value="4">4+</option>
-                </select>
-            </div>
-            
-            <!-- Property Type -->
-            <div class="filter-group">
-                <label class="filter-label">Property Type</label>
-                <select wire:model.live="propertyType" class="filter-select">
-                    <option value="">All Types</option>
-                    @foreach($propertyTypes as $type)
-                        <option value="{{ $type }}">{{ $type }}</option>
-                    @endforeach
-                </select>
-            </div>
-            
-            <!-- Sort By -->
-            <div class="filter-group">
-                <label class="filter-label">Sort By</label>
-                <select wire:model.live="sortBy" class="filter-select">
-                    <option value="created_at">Newest</option>
-                    <option value="price">Price</option>
-                    <option value="bedrooms">Bedrooms</option>
-                    <option value="sqft">Square Feet</option>
-                </select>
-            </div>
-        </div>
-        
-        <div class="filter-actions">
-            <button wire:click="clearFilters" class="btn-clear">Clear All</button>
-        </div>
-    </div>
-
-    <style>
-        .properties-section {
-            background-color: white;
-            padding: 2rem 0;
-        }
-        
-        .properties-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333333;
-        }
-        
-        .section-subtitle {
-            font-size: 0.875rem;
-            color: #6C757D;
-            margin-top: 0.25rem;
-        }
-        
-        .nav-arrows {
-            display: flex;
-            gap: 0.25rem;
-        }
-        
-        .nav-button {
-            padding: 0.25rem;
-            border-radius: 50%;
-            background: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 0;
-            cursor: pointer;
-            transition: box-shadow 0.2s;
-        }
-        
-        .nav-button:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        
-        .nav-icon {
-            width: 1rem;
-            height: 1rem;
-            color: #6C757D;
-        }
-        
-        .properties-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-        
-        @media (min-width: 768px) {
-            .properties-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .properties-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        .property-card {
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: box-shadow 0.2s;
-        }
-        
-        .property-card:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        
-        .property-image-container {
-            position: relative;
-        }
-        
-        .property-image {
-            width: 100%;
-            height: 10rem;
-            object-fit: cover;
-        }
-        
-        .property-tag {
-            position: absolute;
-            top: 0.5rem;
-            left: 0.5rem;
-        }
-        
-        .tag {
-            font-size: 0.75rem;
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 9999px;
-            font-weight: 500;
-        }
-        
-        .tag-success {
-            background-color: #28A745;
-        }
-        
-        .tag-danger {
-            background-color: #FF4500;
-        }
-        
-        .tag-info {
-            background-color: #007BFF;
-        }
-        
-        .tag-warning {
-            background-color: #FFD700;
-            color: #333;
-        }
-        
-        .property-details {
-            padding: 0.75rem;
-        }
-        
-        .property-price {
-            font-size: 1.125rem;
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-            color: #333333;
-        }
-        
-        .property-specs {
-            display: flex;
-            align-items: center;
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
-            color: #6C757D;
-        }
-        
-        .property-specs span {
-            margin-right: 0.75rem;
-        }
-        
-        .property-address {
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: #333333;
-        }
-        
-        .property-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-        }
-        
-        .status-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 9999px;
-            background-color: #28A745;
-            color: white;
-        }
-        
-        .agent-name {
-            color: #6C757D;
-        }
-        
-        .mls-id {
-            font-size: 0.75rem;
-            margin-top: 0.25rem;
-            color: #AAAAAA;
-        }
-        
-        .view-more-container {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-        
-        .view-more-button {
-            display: inline-flex;
-            align-items: center;
-            font-size: 0.875rem;
-            padding: 0.5rem 1rem;
-            border: 0;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            color: white;
-            background-color: #FF7F00;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-        
-        .view-more-button:hover {
-            background-color: #e66a00;
-        }
-        
-        .view-more-icon {
-            width: 1rem;
-            height: 1rem;
-            margin-left: 0.25rem;
-        }
-        
-        .no-properties {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 3rem 1rem;
-        }
-        
-        .no-properties-content {
-            text-align: center;
-        }
-        
-        .no-properties-icon {
-            width: 4rem;
-            height: 4rem;
-            color: #9ca3af;
-            margin: 0 auto 1rem;
-        }
-        
-        .no-properties-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-        
-        .no-properties-text {
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-    </style>
-    
-    <!-- Trending Properties Section -->
-    <div class="properties-section">
-        <div class="properties-content">
-            <!-- Section Header -->
-            <div class="section-header">
-                <div>
-                    <h2 class="section-title">Featured Properties</h2>
-                    <p class="section-subtitle">Handpicked properties in your area</p>
-                </div>
-                
-                <!-- Navigation Arrows -->
-                <div class="nav-arrows">
-                    <button class="nav-button">
-                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    <button class="nav-button">
-                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Property Cards Grid -->
-            <div class="properties-grid">
-                @forelse($featuredProperties as $property)
-                    <div class="property-card" wire:click="openPropertyModal({{ $property->id }})" style="cursor: pointer;">
-                        <!-- Property Image -->
-                        <div class="property-image-container">
-                            @php
-                                $firstImage = $property->images->first();
-                                $imageCount = $property->images->count();
-                            @endphp
+                    {{-- Advanced Filters Panel --}}
+                    <div x-show="showFilters" x-transition class="bg-card border border-border rounded-xl p-6 mt-4 shadow-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {{-- Price Range --}}
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-foreground">Min Price</label>
+                                <input type="number" wire:model.live.debounce.300ms="minPrice" class="w-full border border-border rounded-md px-3 py-2 bg-background" placeholder="Min Price">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-foreground">Max Price</label>
+                                <input type="number" wire:model.live.debounce.300ms="maxPrice" class="w-full border border-border rounded-md px-3 py-2 bg-background" placeholder="Max Price">
+                            </div>
                             
-                            @if($firstImage)
-                                <img 
-                                    src="{{ Storage::url($firstImage->image_path) }}" 
-                                    alt="{{ $property->title }}"
-                                    class="property-image"
-                                >
-                                
-                                @if($imageCount > 1)
-                                    <button wire:click="viewImages({{ $property->id }})" 
-                                            class="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white px-2 py-1 rounded text-xs hover:bg-opacity-80 transition-opacity"
-                                            style="position: absolute; bottom: 0.5rem; right: 0.5rem; background: rgba(0,0,0,0.6); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem;">
-                                        <i class="fas fa-images"></i> +{{ $imageCount - 1 }} more
-                                    </button>
-                                @endif
-                            @else
-                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #e5e7eb; color: #9ca3af;">
-                                    <svg style="width: 3rem; height: 3rem;" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                            @endif
+                            {{-- Bedrooms --}}
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-foreground">Bedrooms</label>
+                                <select wire:model.live="bedrooms" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                                    <option value="">Any</option>
+                                    <option value="1">1+</option>
+                                    <option value="2">2+</option>
+                                    <option value="3">3+</option>
+                                    <option value="4">4+</option>
+                                    <option value="5">5+</option>
+                                </select>
+                            </div>
                             
-                            <!-- Property Tag -->
-                            @if($property->is_featured)
-                                <div class="property-tag">
-                                    <span class="tag tag-info">Featured</span>
-                                </div>
-                            @endif
+                            {{-- Bathrooms --}}
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-foreground">Bathrooms</label>
+                                <select wire:model.live="bathrooms" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                                    <option value="">Any</option>
+                                    <option value="1">1+</option>
+                                    <option value="2">2+</option>
+                                    <option value="3">3+</option>
+                                    <option value="4">4+</option>
+                                </select>
+                            </div>
                         </div>
-
-                        <!-- Property Details -->
-                        <div class="property-details">
-                            <!-- Price -->
-                            <div class="property-price">
-                                TZS {{ number_format($property->price) }}
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                            {{-- Property Type --}}
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-foreground">Property Type</label>
+                                <select wire:model.live="propertyType" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                                    <option value="">All Types</option>
+                                    @foreach($propertyTypes as $type)
+                                        <option value="{{ $type }}">{{ $type }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-
-                            <!-- Property Specs -->
-                            <div class="property-specs">
-                                @if($property->bedrooms)
-                                    <span>{{ $property->bedrooms }} bds</span>
-                                @endif
-                                @if($property->bathrooms)
-                                    <span>{{ $property->bathrooms }} ba</span>
-                                @endif
-                                @if($property->sqft)
-                                    <span>{{ number_format($property->sqft) }} sqft</span>
-                                @endif
+                            
+                            {{-- Sort By --}}
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-foreground">Sort By</label>
+                                <select wire:model.live="sortBy" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                                    <option value="created_at">Newest</option>
+                                    <option value="price">Price</option>
+                                    <option value="bedrooms">Bedrooms</option>
+                                    <option value="sqft">Square Feet</option>
+                                </select>
                             </div>
-
-                            <!-- Address -->
-                            <div class="property-address">
-                                {{ $property->address }}
-                            </div>
-
-                            <!-- Status -->
-                            <div class="property-footer">
-                                <span class="status-badge">{{ $property->status }}</span>
-                                <span class="agent-name">{{ ucfirst($property->property_type) }}</span>
-                            </div>
-
-                            <!-- Inquiry Buttons -->
-                            <div class="mt-3 grid grid-cols-2 gap-2">
-                                <button wire:click="openInquiryModal({{ $property->id }})" 
-                                        class="inquiry-btn flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all duration-200"
-                                        style="background: linear-gradient(135deg, #FF7F00 0%, #FF4500 100%); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer; transition: all 0.2s;">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                    </svg>
-                                    Inquire
-                                </button>
-                                <a href="/financing?property={{ $property->id }}" 
-                                   class="inquiry-btn flex items-center justify-center gap-2 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all duration-200"
-                                   style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none;">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    Financing
-                                </a>
-                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-border">
+                            <button type="button" wire:click="clearFilters" class="px-4 py-2 rounded-md border border-border hover:bg-secondary">Reset Filters</button>
+                            <button type="button" @click="showFilters = false" class="px-4 py-2 rounded-md bg-primary text-primary-foreground">Apply Filters</button>
                         </div>
                     </div>
+
+                    {{-- Filters Toggle Button --}}
+                    <div class="flex items-center justify-end mt-4">
+                        <button type="button" @click="showFilters = !showFilters" class="gap-2 px-4 py-2 rounded-md border border-border flex items-center text-sm">
+                            <i class="lucide lucide-sliders-horizontal w-4 h-4"></i>
+                            <span class="hidden sm:inline">Filters</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Quick Stats --}}
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 mt-12">
+                <div class="text-center">
+                    <p class="text-3xl md:text-4xl font-bold text-primary-foreground">{{ number_format($featuredProperties->count()) }}+</p>
+                    <p class="text-primary-foreground/80 text-sm md:text-base">Active Listings</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl md:text-4xl font-bold text-primary-foreground">{{ number_format($properties instanceof \Illuminate\Pagination\LengthAwarePaginator ? $properties->total() : count($properties)) }}+</p>
+                    <p class="text-primary-foreground/80 text-sm md:text-base">Total Properties</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl md:text-4xl font-bold text-primary-foreground">{{ $propertyTypes->count() }}+</p>
+                    <p class="text-primary-foreground/80 text-sm md:text-base">Property Types</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Featured Listings --}}
+    <section class="py-16 md:py-24 bg-secondary/30">
+        <div class="container">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-2">Featured Listings</h2>
+                    <p class="text-muted-foreground text-lg">
+                        Handpicked properties just for you
+                    </p>
+                </div>
+                <a href="#all-properties" class="px-4 py-2 rounded-md border border-border w-fit flex items-center gap-2">
+                    View All Listings
+                    <i class="lucide lucide-arrow-right w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                @forelse($featuredProperties as $property)
+                    <x-property-card :property="$property" />
                 @empty
-                    <div class="no-properties">
-                        <div class="no-properties-content">
-                            <svg class="no-properties-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                            </svg>
-                            <h3 class="no-properties-title">No Properties Found</h3>
-                            <p class="no-properties-text">Try adjusting your search criteria or filters to find more properties.</p>
+                    <div class="col-span-full text-center py-16">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+                            <i class="lucide lucide-search-x w-8 h-8 text-muted-foreground"></i>
                         </div>
+                        <h3 class="text-xl font-semibold text-foreground mb-2">No properties found</h3>
+                        <p class="text-muted-foreground max-w-md mx-auto">Try adjusting your search filters to find more properties that match your criteria.</p>
                     </div>
                 @endforelse
             </div>
+        </div>
+    </section>
 
-            <!-- View More Button -->
-            <div class="view-more-container">
-                <a href="#" class="view-more-button">
-                    View More Properties
-                    <svg class="view-more-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
+    {{-- Property Types --}}
+    <section class="py-16 md:py-24">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-3">Explore by Property Type</h2>
+                <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
+                    Find exactly what you're looking for with our diverse property categories
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+                @php
+                    $propertyTypeIcons = [
+                        'House' => 'home',
+                        'Apartment' => 'building-2',
+                        'Condo' => 'building',
+                        'Townhouse' => 'warehouse',
+                        'Land' => 'tree-pine',
+                        'Luxury' => 'castle',
+                    ];
+                    $displayTypes = $propertyTypes->take(6);
+                @endphp
+                @forelse($displayTypes as $type)
+                    <button 
+                        wire:click="$set('propertyType', '{{ $type }}')" 
+                        class="group p-6 bg-card rounded-xl border border-border hover:border-primary hover:shadow-lg transition-all duration-300 text-center"
+                    >
+                        <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                            <i class="lucide lucide-{{ $propertyTypeIcons[$type] ?? 'home' }} w-7 h-7 text-primary group-hover:text-primary-foreground"></i>
+                        </div>
+                        <h3 class="font-semibold text-foreground mb-1">{{ $type }}</h3>
+                        <p class="text-sm text-muted-foreground mb-2">{{ $type }} properties</p>
+                        <p class="text-sm font-medium text-primary">
+                            {{ $featuredProperties->where('property_type', $type)->count() }}+ listings
+                        </p>
+                    </button>
+                @empty
+                    <div class="col-span-full text-center py-8">
+                        <p class="text-muted-foreground">No property types available</p>
+                    </div>
+                @endforelse
             </div>
         </div>
-    </div>
+    </section>
 
-    <style>
-        .services-section {
-            background: white;
-            padding: 2rem 0;
-        }
-        
-        .services-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .service-card {
-            text-align: center;
-            padding: 1rem;
-        }
-        
-        .service-icon {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.75rem;
-        }
-        
-        .service-icon svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            color: white;
-        }
-        
-        .service-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #333333;
-        }
-        
-        .service-description {
-            font-size: 0.875rem;
-            color: #6C757D;
-        }
-    </style>
-    
-    <!-- Services Section -->
-    <div class="services-section">
-        <div class="services-content">
-            <div class="services-grid">
-                <!-- Buy Section -->
-                <div class="service-card">
-                    <div class="service-icon" style="background-color: #FF7F00;">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                        </svg>
+    {{-- Why Choose Us --}}
+    <section class="py-16 md:py-24 bg-primary text-primary-foreground">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-3">Why Choose Us</h2>
+                <p class="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
+                    We're committed to making your home search experience seamless and enjoyable
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                @foreach ([
+                    ['icon' => 'shield', 'title' => 'Trusted & Secure', 'description' => 'All listings are verified and your transactions are protected with industry-leading security.'],
+                    ['icon' => 'clock-3', 'title' => 'Save Time', 'description' => 'Advanced search filters and AI-powered recommendations help you find homes faster.'],
+                    ['icon' => 'users', 'title' => 'Expert Agents', 'description' => 'Connect with top-rated local agents who know your neighborhood inside and out.'],
+                    ['icon' => 'award', 'title' => 'Best Prices', 'description' => 'Access exclusive deals and get accurate home valuations powered by real market data.'],
+                ] as $feature)
+                    <div class="text-center p-6 rounded-xl bg-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/15 transition-colors">
+                        <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-primary-foreground/20 flex items-center justify-center">
+                            <i class="lucide lucide-{{ $feature['icon'] }} w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">{{ $feature['title'] }}</h3>
+                        <p class="text-primary-foreground/80 leading-relaxed">{{ $feature['description'] }}</p>
                     </div>
-                    <h3 class="service-title">Buy a Home</h3>
-                    <p class="service-description">Find your dream home with comprehensive listings and advanced search tools.</p>
-                </div>
-
-                <!-- Rent Section -->
-                <div class="service-card">
-                    <div class="service-icon" style="background-color: #28A745;">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="service-title">Rent a Property</h3>
-                    <p class="service-description">Discover rental properties that match your budget and lifestyle preferences.</p>
-                </div>
-
-                <!-- Sell Section -->
-                <div class="service-card">
-                    <div class="service-icon" style="background-color: #007BFF;">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                        </svg>
-                    </div>
-                    <h3 class="service-title">Sell Your Home</h3>
-                    <p class="service-description">List your property and connect with qualified buyers through our platform.</p>
-                </div>
+                @endforeach
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Auth Modals -->
+    {{-- Auth Modals --}}
     @livewire('auth-modals')
 
-    <!-- Image Gallery Modal -->
+    {{-- Image Gallery Modal --}}
     @if($showImageModal)
         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(0,0,0,0.9); display: flex; flex-direction: column;" wire:click="closeImageModal">
             <div style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
                 <button wire:click="closeImageModal" style="color: white; font-size: 2rem; background: none; border: none; cursor: pointer;">
-                    <i class="fas fa-times"></i>
+                    <i class="lucide lucide-x"></i>
                 </button>
             </div>
             
             <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative;" wire:click.stop>
                 @if($currentImageIndex > 0)
                     <button wire:click="previousImage" style="position: absolute; left: 1rem; color: white; font-size: 2rem; background: none; border: none; cursor: pointer;">
-                        <i class="fas fa-chevron-left"></i>
+                        <i class="lucide lucide-chevron-left"></i>
                     </button>
                 @endif
                 
@@ -1023,7 +254,7 @@
                 
                 @if($currentImageIndex < count($viewingImages) - 1)
                     <button wire:click="nextImage" style="position: absolute; right: 1rem; color: white; font-size: 2rem; background: none; border: none; cursor: pointer;">
-                        <i class="fas fa-chevron-right"></i>
+                        <i class="lucide lucide-chevron-right"></i>
                     </button>
                 @endif
             </div>
@@ -1044,11 +275,11 @@
         </div>
     @endif
 
-    <!-- Property Details Modal -->
+    {{-- Property Details Modal --}}
     @if($showPropertyModal && $selectedProperty)
         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; padding: 1rem; overflow-y: auto;" wire:click="closePropertyModal">
             <div class="bg-white rounded-xl shadow-xl max-w-4xl w-full my-8" style="background: white; border-radius: 0.75rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); max-width: 56rem; width: 100%;" wire:click.stop>
-                <!-- Modal Header -->
+                {{-- Modal Header --}}
                 <div class="flex items-center justify-between p-6 border-b border-gray-200" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem; border-bottom: 1px solid #e5e7eb;">
                     <h2 class="text-2xl font-bold text-gray-900" style="font-size: 1.5rem; font-weight: 700; color: #111827;">Property Details</h2>
                     <button wire:click="closePropertyModal" class="text-gray-400 hover:text-gray-600" style="color: #9ca3af; font-size: 1.5rem; background: none; border: none; cursor: pointer;">
@@ -1058,9 +289,9 @@
                     </button>
                 </div>
 
-                <!-- Modal Body -->
+                {{-- Modal Body --}}
                 <div style="padding: 1.5rem; max-height: calc(90vh - 200px); overflow-y: auto;">
-                    <!-- Image Gallery -->
+                    {{-- Image Gallery --}}
                     <div class="mb-6" style="margin-bottom: 1.5rem;">
                         @if($selectedProperty->images->count() > 0)
                             <div style="position: relative; border-radius: 0.75rem; overflow: hidden; height: 400px;">
@@ -1087,7 +318,7 @@
                                 @endif
                             </div>
                             
-                            <!-- Thumbnail Strip -->
+                            {{-- Thumbnail Strip --}}
                             @if($selectedProperty->images->count() > 1)
                                 <div style="display: flex; gap: 0.5rem; margin-top: 1rem; overflow-x: auto;">
                                     @foreach($selectedPropertyImages as $index => $image)
@@ -1101,7 +332,7 @@
                         @endif
                     </div>
 
-                    <!-- Property Title & Price -->
+                    {{-- Property Title & Price --}}
                     <div class="mb-4" style="margin-bottom: 1rem;">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2" style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 0.5rem;">
                             {{ $selectedProperty->title }}
@@ -1122,7 +353,7 @@
                         </div>
                     </div>
 
-                    <!-- Property Stats -->
+                    {{-- Property Stats --}}
                     <div class="grid grid-cols-3 gap-4 mb-6" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
                         @if($selectedProperty->bedrooms)
                             <div class="bg-gray-50 rounded-lg p-4 text-center" style="background: #f9fafb; border-radius: 0.5rem; padding: 1rem; text-align: center;">
@@ -1144,7 +375,7 @@
                         @endif
                     </div>
 
-                    <!-- Description -->
+                    {{-- Description --}}
                     @if($selectedProperty->description)
                         <div class="mb-6" style="margin-bottom: 1.5rem;">
                             <h4 class="text-lg font-semibold text-gray-900 mb-2" style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 0.5rem;">Description</h4>
@@ -1152,7 +383,7 @@
                         </div>
                     @endif
 
-                    <!-- Location -->
+                    {{-- Location --}}
                     <div class="mb-6" style="margin-bottom: 1.5rem;">
                         <h4 class="text-lg font-semibold text-gray-900 mb-2" style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 0.5rem;">Location</h4>
                         <div class="flex items-start gap-2" style="display: flex; align-items: flex-start; gap: 0.5rem;">
@@ -1169,7 +400,7 @@
                         </div>
                     </div>
 
-                    <!-- Owner Information -->
+                    {{-- Owner Information --}}
                     @if($selectedProperty->owner_phone || $selectedProperty->owner_email)
                         <div class="bg-gradient-to-r from-orange-50 to-red-50 rounded-lg p-4 mb-6" style="background: linear-gradient(to right, #fff7ed, #fef2f2); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1.5rem;">
                             <h4 class="text-lg font-semibold text-gray-900 mb-2" style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 0.5rem;">Contact Information</h4>
@@ -1195,7 +426,7 @@
                     @endif
                 </div>
 
-                <!-- Modal Footer -->
+                {{-- Modal Footer --}}
                 <div class="flex gap-3 p-6 border-t border-gray-200" style="display: flex; gap: 0.75rem; padding: 1.5rem; border-top: 1px solid #e5e7eb;">
                     <button wire:click="openInquiryModalFromProperty" 
                             class="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-white transition-all duration-200"
@@ -1218,7 +449,7 @@
         </div>
     @endif
 
-    <!-- Inquiry Modal -->
+    {{-- Inquiry Modal --}}
     @if($showInquiryModal)
         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; padding: 1rem;" wire:click="closeInquiryModal">
             <div style="background: white; border-radius: 1rem; max-width: 32rem; width: 100%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);" wire:click.stop>
@@ -1287,7 +518,7 @@
         </div>
     @endif
 
-    <!-- Financing Inquiry Modal -->
+    {{-- Financing Inquiry Modal --}}
     @if($showFinancingModal)
         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; padding: 1rem;" wire:click="closeFinancingModal">
             <div style="background: white; border-radius: 1rem; max-width: 32rem; width: 100%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);" wire:click.stop>
@@ -1379,5 +610,4 @@
             </div>
         </div>
     @endif
-</div>
 </div>

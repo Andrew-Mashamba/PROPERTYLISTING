@@ -396,8 +396,8 @@ class HomePage extends Component
             ->paginate(12);
 
         return view('livewire.home-page', [
-            'featuredProperties' => $this->featuredProperties,
-            'propertyTypes' => $this->propertyTypes,
+            'featuredProperties' => $this->getFeaturedPropertiesProperty(),
+            'propertyTypes' => $this->getPropertyTypesProperty(),
             'properties' => $properties,
         ])->layout('layouts.guest');
     }
