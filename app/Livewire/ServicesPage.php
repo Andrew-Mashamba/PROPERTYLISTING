@@ -16,6 +16,6 @@ class ServicesPage extends Component
 
         return view('livewire.services-page', [
             'services' => $services,
-        ]);
+        ])->layout('layouts.guest');
     }
 }

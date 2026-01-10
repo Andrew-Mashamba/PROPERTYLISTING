@@ -295,59 +295,44 @@
         
     </style>
     
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="top-bar-content">
-            <div class="top-bar-left">
-                <span class="top-bar-text">Free Shipping for orders over 50,000 TZS in materials</span>
-                <span class="top-bar-email">hello@savannaproperty.com</span>
-            </div>
-            <div class="top-bar-right">
-                <div class="social-links">
-                    <a href="#" class="social-link">Facebook</a>
-                    <a href="#" class="social-link">Twitter</a>
-                    <a href="#" class="social-link">LinkedIn</a>
-                </div>
-                <div class="top-bar-actions pr-2">
-                    <button wire:click="$dispatch('showLoginModal')" class="top-bar-link text-xl font-bold border-2 border-orange-500 rounded-md px-2 py-1 m-0" style="color: #FF7F00;">Login</button>
-                    <button wire:click="$dispatch('showRegisterModal')" class="top-bar-link text-xl font-bold border-2 border-blue-500 rounded-md px-2 py-1 m-0" style="color: #007BFF;">Sell Property</button>
-                    <button wire:click="$dispatch('showRegisterModal')" class="top-bar-link text-xl font-bold border-2 border-green-500 rounded-md px-2 py-1 m-0" style="color: #28A745;">Post Rental</button>
-                </div>
-            </div>
-        </div>
+    {{-- Hero Section --}}
+    <section class="relative min-h-[500px] md:min-h-[600px] flex items-center justify-center">
+        <div class="absolute inset-0 z-0">
+            <img src="{{ asset('assets/hero-bg.jpg') }}" alt="Materials" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/40 to-foreground/70"></div>
     </div>
 
-    <!-- Main Header -->
-    <div class="main-header">
-        <div class="header-content">
-            <div class="header-left">
-                <h1 class="main-logo">SAVANNA</h1>
+        <div class="container relative z-10 text-center px-4">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">Building Materials</h1>
+            <p class="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
+                Find quality materials for your construction projects
+            </p>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-background rounded-xl p-4 shadow-2xl">
+                    <form wire:submit.prevent="search" class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <i class="lucide lucide-search absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground"></i>
+                            <input 
+                                type="text" 
+                                wire:model.live.debounce.300ms="searchQuery"
+                                placeholder="Search for materials..." 
+                                class="pl-12 h-14 text-base border border-border bg-secondary/50 rounded-md w-full"
+                            >
             </div>
-            <div class="header-center">
-                <nav class="main-nav">
-                    <a href="/" class="nav-item">BUY</a>
-                    <a href="/rent" class="nav-item">RENT</a>
-                    <a href="/materials" class="nav-item nav-active">MATERIALS</a>
-                    <a href="/services" class="nav-item">SERVICES</a>
-                </nav>
+                        <button type="submit" class="h-14 px-8 text-base font-semibold rounded-md bg-primary text-primary-foreground flex items-center justify-center gap-2">
+                            <i class="lucide lucide-search w-5 h-5"></i>
+                            Search
+                        </button>
+                    </form>
             </div>
-            <div class="header-right">
-                <div class="search-bar">
-                    <select class="search-category mr-4">
-                        <option>All Categories</option>
-                        <option>Residential</option>
-                        <option>Commercial</option>
-                        <option>Land</option>
-                        <option>Investment</option>
-                    </select>
-                    <input type="text" wire:model.live.debounce.300ms="searchQuery" class="search-input mr-4" 
-                    placeholder="Search for properties">
-                    <button class="search-btn">SEARCH</button>
                 </div>
             </div>
-        </div>
-    </div>
+    </section>
 
+    {{-- Materials Content Section --}}
+    <section class="py-16 bg-background">
+        <div class="container">
     <!-- Hero Section with Sidebar -->
     <div class="hero-layout">
         <!-- Department Sidebar -->
@@ -1700,42 +1685,74 @@
     </style>
 
 
-    <div class="properties-content">
-            <!-- Section Header with Tabs -->
-            <div class="section-header featured-header" style="background: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); margin-bottom: 1.5rem;">
-                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <div style="width: 3rem; height: 3rem; border-radius: 0.5rem; background: linear-gradient(135deg, #FF7F00 0%, #FF4500 100%); display: flex; align-items: center; justify-content: center;">
-                            <svg style="width: 1.5rem; height: 1.5rem; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                            </svg>
-                        </div>
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
                         <div>
-                            <h2 class="section-title" style="margin: 0; font-size: 1.5rem; font-weight: 700; color: #1f2937;">Featured Materials</h2>
-                            <p style="margin: 0; font-size: 0.875rem; color: #6b7280;">{{ $materials->total() }} products available</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-2">Materials</h2>
+                    <p class="text-muted-foreground text-lg">
+                        {{ ($materials instanceof \Illuminate\Pagination\LengthAwarePaginator ? $materials->total() : count($materials)) }} products available
+                    </p>
                         </div>
-                    </div>
-                   
-                </div>
-                <div class="category-tabs justify-end" style="width: 100%;">
-                <button wire:click="openCartModal" style="position: relative; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #FF7F00 0%, #FF4500 100%); color: white; border-radius: 0.5rem; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(255, 127, 0, 0.3);">
-                        <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
+                <button wire:click="openCartModal" class="relative px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold flex items-center gap-2 hover:bg-primary/90 transition-colors w-fit">
+                    <i class="lucide lucide-shopping-cart w-5 h-5"></i>
                         <span>View Cart</span>
                         @if($this->cartCount > 0)
-                            <span style="position: absolute; top: -0.5rem; right: -0.5rem; background: #ef4444; color: white; font-size: 0.875rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 9999px; min-width: 1.5rem; text-align: center; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">{{ $this->cartCount }}</span>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full min-w-[1.5rem] text-center">{{ $this->cartCount }}</span>
                         @endif
                     </button>
                 </div>
+
+            {{-- Filters Section --}}
+            <div class="bg-card rounded-xl p-6 shadow-card mb-6" x-data="{ showFilters: false }">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-foreground">Filters</h3>
+                    <button @click="showFilters = !showFilters" class="flex items-center gap-2 px-4 py-2 rounded-md border border-border hover:bg-secondary text-sm">
+                        <i class="lucide lucide-sliders-horizontal w-4 h-4"></i>
+                        <span x-show="!showFilters">Show Filters</span>
+                        <span x-show="showFilters">Hide Filters</span>
+                    </button>
             </div>
 
-            <!-- Modern Materials Grid -->
-            <div class="modern-materials-grid">
+                <div x-show="showFilters" x-transition class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-foreground">Min Price</label>
+                        <input type="number" wire:model.live.debounce.300ms="minPrice" class="w-full border border-border rounded-md px-3 py-2 bg-background" placeholder="Min Price">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-foreground">Max Price</label>
+                        <input type="number" wire:model.live.debounce.300ms="maxPrice" class="w-full border border-border rounded-md px-3 py-2 bg-background" placeholder="Max Price">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-foreground">Category</label>
+                        <select wire:model.live="category" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                            <option value="">All Categories</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat }}">{{ $cat }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-foreground">Brand</label>
+                        <select wire:model.live="brand" class="w-full border border-border rounded-md px-3 py-2 bg-background">
+                            <option value="">All Brands</option>
+                            @foreach($brands as $br)
+                                <option value="{{ $br }}">{{ $br }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div x-show="showFilters" x-transition class="flex items-center justify-end gap-3 mt-4 pt-4 border-t border-border">
+                    <button type="button" wire:click="clearFilters" class="px-4 py-2 rounded-md border border-border hover:bg-secondary">Reset Filters</button>
+                </div>
+            </div>
+
+            {{-- Materials Grid --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @forelse($materials as $material)
-                    <div class="material-card-modern">
-                        <!-- Material Image with Overlay -->
-                        <div class="material-image-wrapper group">
+                    <div class="group bg-card rounded-lg overflow-hidden shadow-card hover:shadow-lg transition-all duration-300">
+                        {{-- Material Image --}}
+                        <div class="relative aspect-[4/3] overflow-hidden">
                             @php
                                 $productImages = $material->images ? (is_array($material->images) ? $material->images : json_decode($material->images, true)) : [];
                                 $firstImage = !empty($productImages) ? $productImages[0] : $material->image_url;
@@ -1745,134 +1762,106 @@
                             <img 
                                 src="{{ asset('storage/' . $firstImage) }}" 
                                 alt="{{ $material->name }}"
-                                class="material-image"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             >
+                            
+                            {{-- Badge --}}
+                            <div class="absolute top-3 left-3 flex gap-2">
+                                @if($material->discount_percentage > 0)
+                                    <span class="bg-primary text-primary-foreground text-xs font-semibold px-2.5 py-1 rounded-md">{{ $material->discount_percentage }}% OFF</span>
+                                @elseif($material->is_featured)
+                                    <span class="bg-blue-500 text-white text-xs font-semibold px-2.5 py-1 rounded-md">FEATURED</span>
+                                @elseif($material->stock_quantity > 0)
+                                    <span class="bg-green-500 text-white text-xs font-semibold px-2.5 py-1 rounded-md">In Stock</span>
+                                @else
+                                    <span class="bg-muted text-muted-foreground text-xs font-semibold px-2.5 py-1 rounded-md">Out of Stock</span>
+                                @endif
+                                <span class="bg-background/90 backdrop-blur-sm text-foreground text-xs font-medium px-2.5 py-1 rounded-md">{{ $material->category }}</span>
+                            </div>
                             
                             @if($imageCount > 1)
                                 <button wire:click="viewImages({{ $material->id }})" 
-                                        style="position: absolute; bottom: 0.5rem; right: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.75rem; background: rgba(0, 0, 0, 0.7); color: white; border-radius: 0.25rem; border: none; cursor: pointer; opacity: 0; transition: opacity 0.2s;"
-                                        onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
-                                    <i class="fas fa-images" style="margin-right: 0.25rem;"></i> +{{ $imageCount - 1 }} more
+                                        class="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-xs hover:bg-black/90 transition-opacity opacity-0 group-hover:opacity-100">
+                                    <i class="lucide lucide-images w-3 h-3 inline mr-1"></i> +{{ $imageCount - 1 }} more
                                 </button>
                             @endif
-                            
-                            <!-- Floating Badge -->
-                            <div class="floating-badge">
-                                @if($material->discount_percentage > 0)
-                                    <span class="badge badge-discount">{{ $material->discount_percentage }}% OFF</span>
-                                @elseif($material->is_featured)
-                                    <span class="badge badge-featured">Featured</span>
-                                @elseif($material->stock_quantity > 0)
-                                    <span class="badge badge-stock">In Stock</span>
-                                @else
-                                    <span class="badge badge-out">Out of Stock</span>
-                                @endif
-                            </div>
-                            
-                            <!-- Quick Actions -->
-                            <div class="quick-actions">
-                                <button class="action-btn wishlist-btn" title="Add to Wishlist">
-                                    <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <button class="action-btn compare-btn" title="Compare">
-                                    <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                    </svg>
-                                </button>
-                            </div>
                         </div>
 
-                        <!-- Material Content -->
-                        <div class="material-content">
-                            <!-- Category & Brand -->
-                            <div class="material-meta">
-                                <span class="category-tag">{{ $material->category }}</span>
-                                <span class="brand-tag">{{ $material->brand }}</span>
+                        {{-- Material Content --}}
+                        <div class="p-4">
+                            {{-- Category & Brand --}}
+                            <div class="flex gap-2 mb-2">
+                                <span class="px-2 py-0.5 bg-secondary text-muted-foreground text-xs font-semibold rounded">{{ $material->category }}</span>
+                                <span class="px-2 py-0.5 bg-primary/10 text-primary text-xs font-semibold rounded">{{ $material->brand }}</span>
                             </div>
 
-                            <!-- Material Name -->
-                            <h3 class="material-title">{{ $material->name }}</h3>
+                            {{-- Material Name --}}
+                            <h3 class="text-foreground font-semibold text-sm mb-2 line-clamp-2">{{ $material->name }}</h3>
 
-                            <!-- Material Specs -->
-                            <div class="material-specs">
-                                <div class="spec-item">
-                                    <svg class="spec-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                                    </svg>
+                            {{-- Material Specs --}}
+                            <div class="flex flex-col gap-1 mb-3 text-xs text-muted-foreground">
+                                <div class="flex items-center gap-1.5">
+                                    <i class="lucide lucide-package w-3 h-3"></i>
                                     <span>{{ $material->stock_quantity }} {{ $material->unit }}</span>
                                 </div>
-                                <div class="spec-item">
-                                    <svg class="spec-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
+                                <div class="flex items-center gap-1.5">
+                                    <i class="lucide lucide-check-circle w-3 h-3"></i>
                                     <span>{{ $material->is_available ? 'Available' : 'Unavailable' }}</span>
                                 </div>
                             </div>
 
-                            <!-- Price Section -->
-                            <div class="price-section">
+                            {{-- Price Section --}}
+                            <div class="mb-3">
                                 @if($material->discount_percentage > 0)
-                                    <div class="price-container">
-                                        <span class="original-price">TZS {{ number_format($material->price, 0) }}</span>
-                                        <span class="discounted-price">TZS {{ number_format($material->discounted_price, 0) }}</span>
-                                        <span class="savings">Save TZS {{ number_format($material->price - $material->discounted_price, 0) }}</span>
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="text-xs text-muted-foreground line-through">TZS {{ number_format($material->price, 0) }}</span>
+                                        <span class="text-lg font-bold text-primary">TZS {{ number_format($material->discounted_price, 0) }}</span>
+                                        <span class="text-xs text-green-600 font-semibold">Save TZS {{ number_format($material->price - $material->discounted_price, 0) }}</span>
                                     </div>
                                 @else
-                                    <div class="price-container">
-                                        <span class="current-price">TZS {{ number_format($material->price, 0) }}</span>
-                                    </div>
+                                    <span class="text-lg font-bold text-primary">TZS {{ number_format($material->price, 0) }}</span>
                                 @endif
                             </div>
 
-                            <!-- Supplier Info -->
-                            <div class="supplier-info">
-                                <div class="supplier-details">
-                                    <span class="supplier-name">{{ $material->supplier_name }}</span>
-                                    <span class="sku-info">SKU: {{ $material->sku }}</span>
+                            {{-- Supplier Info --}}
+                            <div class="border-t border-border pt-2 mb-3">
+                                <div class="flex justify-between items-center text-xs text-muted-foreground">
+                                    <span class="font-semibold">{{ $material->supplier_name }}</span>
+                                    <span>SKU: {{ $material->sku }}</span>
                                 </div>
                             </div>
 
-                            <!-- Action Buttons -->
-                            <div class="material-actions">
-                                <button wire:click="promptAddToCart({{ $material->id }})" class="btn-add-cart">
-                                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
-                                    </svg>
+                            {{-- Action Buttons --}}
+                            <div class="flex gap-2">
+                                <button wire:click="promptAddToCart({{ $material->id }})" class="flex-1 flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-3 py-2 rounded-md text-xs font-semibold hover:bg-primary/90 transition-colors">
+                                    <i class="lucide lucide-shopping-cart w-3.5 h-3.5"></i>
                                     Add to Cart
                                 </button>
-                                <button wire:click="viewImages({{ $material->id }})" class="btn-quick-view">
-                                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                    Quick View
+                                <button wire:click="viewImages({{ $material->id }})" class="px-3 py-2 border border-border rounded-md hover:bg-secondary transition-colors">
+                                    <i class="lucide lucide-eye w-3.5 h-3.5 text-foreground"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <div class="no-materials-state">
-                        <div class="empty-state-content">
-                            <div class="empty-state-icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                                </svg>
+                    <div class="col-span-full text-center py-16">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+                            <i class="lucide lucide-package w-8 h-8 text-muted-foreground"></i>
                             </div>
-                            <h3 class="empty-state-title">No Materials Found</h3>
-                            <p class="empty-state-text">Try adjusting your search criteria or filters to find more materials.</p>
-                            <button class="empty-state-btn">Clear Filters</button>
-                        </div>
+                        <h3 class="text-xl font-semibold text-foreground mb-2">No Materials Found</h3>
+                        <p class="text-muted-foreground max-w-md mx-auto mb-4">Try adjusting your search filters to find more materials that match your criteria.</p>
+                        <button wire:click="clearFilters" class="px-4 py-2 bg-primary text-primary-foreground rounded-md font-semibold hover:bg-primary/90">Clear Filters</button>
                     </div>
                 @endforelse
             </div>
 
-      
-
-
+            @if($materials->hasPages())
+                <div class="mt-8">
+                    {{ $materials->links() }}
     </div>
-    
+            @endif
+        </div>
+    </section>
 
     <style>
         .services-section {
@@ -1996,26 +1985,24 @@
     <!-- Auth Modals -->
     @livewire('auth-modals')
 
-    <!-- Add to Cart Confirmation Modal -->
+    {{-- Add to Cart Confirmation Modal --}}
     @if($showAddToCartConfirm)
-        <div style="position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5);" wire:click="closeAddToCartConfirm">
-            <div style="position: relative; max-width: 28rem; width: 100%; margin: 0 1rem;" wire:click.stop>
-                <div style="background: white; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); padding: 2rem;">
-                    <div style="text-align: center; margin-bottom: 1.5rem;">
-                        <div style="width: 4rem; height: 4rem; border-radius: 50%; background: linear-gradient(135deg, #FF7F00 0%, #FF4500 100%); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
-                            <svg style="width: 2rem; height: 2rem; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
+        <div class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" wire:click="closeAddToCartConfirm">
+            <div class="relative max-w-md w-full" wire:click.stop>
+                <div class="bg-background rounded-2xl shadow-2xl p-8">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-primary mx-auto mb-4 flex items-center justify-center">
+                            <i class="lucide lucide-shopping-cart w-8 h-8 text-primary-foreground"></i>
                         </div>
-                        <h3 style="font-size: 1.5rem; font-weight: 700; color: #1f2937; margin: 0 0 0.5rem 0;">Add item to cart?</h3>
-                        <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">Do you want to add this item to your shopping cart?</p>
+                        <h3 class="text-2xl font-bold text-foreground mb-2">Add item to cart?</h3>
+                        <p class="text-sm text-muted-foreground">Do you want to add this item to your shopping cart?</p>
                     </div>
                     
-                    <div style="display: flex; gap: 0.75rem;">
-                        <button wire:click="closeAddToCartConfirm" style="flex: 1; padding: 0.75rem; border: 2px solid #e5e7eb; color: #6b7280; border-radius: 0.5rem; font-weight: 600; cursor: pointer; background: white; transition: all 0.2s;">
+                    <div class="flex gap-3">
+                        <button wire:click="closeAddToCartConfirm" class="flex-1 px-4 py-3 border-2 border-border text-foreground rounded-lg font-semibold hover:bg-secondary transition-colors">
                             Cancel
                         </button>
-                        <button wire:click="addToCart" style="flex: 1; padding: 0.75rem; background: linear-gradient(135deg, #FF7F00 0%, #FF4500 100%); color: white; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        <button wire:click="addToCart" class="flex-1 px-4 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors shadow-md">
                             Add to Cart
                         </button>
                     </div>
@@ -2024,96 +2011,90 @@
         </div>
     @endif
 
-    <!-- Cart Modal -->
+    {{-- Cart Modal --}}
     @if($showCartModal)
-        <div style="position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5);" wire:click="closeCartModal">
-            <div style="position: relative; max-width: 48rem; width: 100%; margin: 0 1rem; max-height: 90vh; overflow-y: auto;" wire:click.stop>
-                <div style="background: white; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
-                    <div style="padding: 1.5rem; border-bottom: 3px solid #FF7F00;">
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                <div style="width: 3rem; height: 3rem; border-radius: 0.5rem; background: linear-gradient(135deg, #FF7F00 0%, #FF4500 100%); display: flex; align-items: center; justify-content: center;">
-                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                    </svg>
+        <div class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" wire:click="closeCartModal">
+            <div class="relative max-w-3xl w-full max-h-[90vh] overflow-y-auto" wire:click.stop>
+                <div class="bg-background rounded-2xl shadow-2xl">
+                    <div class="p-6 border-b-2 border-primary">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
+                                    <i class="lucide lucide-shopping-cart w-6 h-6 text-primary-foreground"></i>
                                 </div>
                                 <div>
-                                    <h3 style="font-size: 1.25rem; font-weight: 700; color: #1f2937;">Shopping Cart</h3>
-                                    <p style="font-size: 0.875rem; color: #6b7280;">{{ $this->cartCount }} items</p>
+                                    <h3 class="text-xl font-bold text-foreground">Shopping Cart</h3>
+                                    <p class="text-sm text-muted-foreground">{{ $this->cartCount }} items</p>
                                 </div>
                             </div>
-                            <button wire:click="closeCartModal" style="color: #9ca3af; font-size: 1.5rem; background: none; border: none; cursor: pointer;">×</button>
+                            <button wire:click="closeCartModal" class="text-muted-foreground text-2xl hover:text-foreground transition-colors">
+                                <i class="lucide lucide-x w-6 h-6"></i>
+                            </button>
                         </div>
                     </div>
 
-                    <div style="padding: 1.5rem;">
+                    <div class="p-6">
                         @if(empty($cart))
-                            <div style="text-align: center; padding: 3rem 0;">
-                                <svg class="w-16 h-16" style="margin: 0 auto; color: #d1d5db;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
-                                <p style="margin-top: 1rem; color: #6b7280; font-size: 1.125rem;">Your cart is empty</p>
+                            <div class="text-center py-12">
+                                <i class="lucide lucide-shopping-cart w-16 h-16 text-muted-foreground mx-auto mb-4"></i>
+                                <p class="text-lg text-muted-foreground">Your cart is empty</p>
                             </div>
                         @else
-                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="flex flex-col gap-4">
                                 @foreach($cart as $key => $item)
-                                    <div style="display: flex; gap: 1rem; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
+                                    <div class="flex gap-4 p-4 border border-border rounded-lg">
                                         @if($item['image'])
-                                            <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" style="width: 5rem; height: 5rem; object-fit: cover; border-radius: 0.5rem;">
+                                            <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-20 h-20 object-cover rounded-lg">
                                         @else
-                                            <div style="width: 5rem; height: 5rem; background: #f3f4f6; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;">
-                                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                                </svg>
+                                            <div class="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center">
+                                                <i class="lucide lucide-image w-8 h-8 text-muted-foreground"></i>
                                             </div>
                                         @endif
                                         
-                                        <div style="flex: 1;">
-                                            <h4 style="font-weight: 600; color: #1f2937;">{{ $item['name'] }}</h4>
-                                            <p style="font-size: 0.875rem; color: #6b7280;">SKU: {{ $item['sku'] }}</p>
-                                            <p style="font-weight: 600; color: #FF7F00; margin-top: 0.5rem;">TSh {{ number_format($item['price'], 0) }}</p>
+                                        <div class="flex-1">
+                                            <h4 class="font-semibold text-foreground">{{ $item['name'] }}</h4>
+                                            <p class="text-sm text-muted-foreground">SKU: {{ $item['sku'] }}</p>
+                                            <p class="font-semibold text-primary mt-1">TZS {{ number_format($item['price'], 0) }}</p>
                                             
-                                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem;">
-                                                <button wire:click="updateQuantity('{{ $key }}', {{ $item['quantity'] - 1 }})" style="width: 2rem; height: 2rem; border: 1px solid #d1d5db; border-radius: 0.25rem; background: white; cursor: pointer;">-</button>
-                                                <input type="number" value="{{ $item['quantity'] }}" wire:change="updateQuantity('{{ $key }}', $event.target.value)" style="width: 4rem; text-align: center; border: 1px solid #d1d5db; border-radius: 0.25rem; padding: 0.25rem;">
-                                                <button wire:click="updateQuantity('{{ $key }}', {{ $item['quantity'] + 1 }})" style="width: 2rem; height: 2rem; border: 1px solid #d1d5db; border-radius: 0.25rem; background: white; cursor: pointer;">+</button>
+                                            <div class="flex items-center gap-2 mt-3">
+                                                <button wire:click="updateQuantity('{{ $key }}', {{ $item['quantity'] - 1 }})" class="w-8 h-8 border border-border rounded bg-background hover:bg-secondary transition-colors">-</button>
+                                                <input type="number" value="{{ $item['quantity'] }}" wire:change="updateQuantity('{{ $key }}', $event.target.value)" class="w-16 text-center border border-border rounded px-2 py-1 bg-background">
+                                                <button wire:click="updateQuantity('{{ $key }}', {{ $item['quantity'] + 1 }})" class="w-8 h-8 border border-border rounded bg-background hover:bg-secondary transition-colors">+</button>
                                             </div>
                                         </div>
                                         
-                                        <div style="display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between;">
-                                            <button wire:click="removeFromCart('{{ $key }}')" style="color: #ef4444; background: none; border: none; cursor: pointer;">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                </svg>
+                                        <div class="flex flex-col items-end justify-between">
+                                            <button wire:click="removeFromCart('{{ $key }}')" class="text-red-500 hover:text-red-600 transition-colors">
+                                                <i class="lucide lucide-trash-2 w-5 h-5"></i>
                                             </button>
-                                            <p style="font-weight: 700; color: #1f2937;">TSh {{ number_format($item['price'] * $item['quantity'], 0) }}</p>
+                                            <p class="font-bold text-foreground">TZS {{ number_format($item['price'] * $item['quantity'], 0) }}</p>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
 
-                            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid #e5e7eb;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span style="color: #6b7280;">Subtotal</span>
-                                    <span style="font-weight: 600;">TSh {{ number_format($this->cartTotal, 0) }}</span>
+                            <div class="mt-6 pt-6 border-t-2 border-border">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-muted-foreground">Subtotal</span>
+                                    <span class="font-semibold text-foreground">TZS {{ number_format($this->cartTotal, 0) }}</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span style="color: #6b7280;">Tax (18%)</span>
-                                    <span style="font-weight: 600;">TSh {{ number_format($this->cartTotal * 0.18, 0) }}</span>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-muted-foreground">Tax (18%)</span>
+                                    <span class="font-semibold text-foreground">TZS {{ number_format($this->cartTotal * 0.18, 0) }}</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span style="color: #6b7280;">Shipping</span>
-                                    <span style="font-weight: 600;">TSh 5,000</span>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-muted-foreground">Shipping</span>
+                                    <span class="font-semibold text-foreground">TZS 5,000</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
-                                    <span style="font-size: 1.125rem; font-weight: 700;">Total</span>
-                                    <span style="font-size: 1.125rem; font-weight: 700; color: #FF7F00;">TSh {{ number_format($this->cartTotal * 1.18 + 5000, 0) }}</span>
+                                <div class="flex justify-between pt-4 border-t border-border">
+                                    <span class="text-lg font-bold text-foreground">Total</span>
+                                    <span class="text-lg font-bold text-primary">TZS {{ number_format($this->cartTotal * 1.18 + 5000, 0) }}</span>
                                 </div>
                             </div>
 
-                            <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
-                                <button wire:click="clearCart" style="flex: 1; padding: 0.75rem; border: 2px solid #FF7F00; color: #FF7F00; border-radius: 0.5rem; font-weight: 600; cursor: pointer; background: white;">Clear Cart</button>
-                                <button wire:click="proceedToCheckout" style="flex: 2; padding: 0.75rem; background: linear-gradient(135deg, #FF7F00 0%, #FF4500 100%); color: white; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none;">Proceed to Checkout</button>
+                            <div class="mt-6 flex gap-3">
+                                <button wire:click="clearCart" class="flex-1 px-4 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors">Clear Cart</button>
+                                <button wire:click="proceedToCheckout" class="flex-2 px-4 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">Proceed to Checkout</button>
                             </div>
                         @endif
                     </div>
@@ -2291,5 +2272,7 @@
             </div>
         </div>
     @endif
-</div>
+
+    {{-- Auth Modals --}}
+    @livewire('auth-modals')
 </div>

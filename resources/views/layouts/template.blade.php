@@ -52,6 +52,8 @@
     @yield('content')
     @livewireScripts
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <script>
         // Initialize Lucide icons after page load
         document.addEventListener('DOMContentLoaded', function() {

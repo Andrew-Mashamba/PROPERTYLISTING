@@ -32,8 +32,11 @@
                     $images = [asset('images/placeholder.jpg')];
                 }
             @endphp
-
-            <div class="container mb-8" x-data="gallery({ images: @json($images), address: '{{ addslashes($property->address) }}' })">
+            
+            <div class="container mb-8" x-data='gallery(@json([
+                        'images' => $images,
+                        'address' => $property->address,
+                        ]))'>
                 <div class="relative">
                     <div class="relative aspect-[16/9] md:aspect-[2/1] overflow-hidden rounded-xl">
                         <img :src="images[currentIndex]" :alt="`${address} - Image ${currentIndex + 1}`" class="w-full h-full object-cover cursor-pointer" @click="isFullscreen = true">

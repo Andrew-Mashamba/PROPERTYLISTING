@@ -143,6 +143,6 @@ class FinancingPage extends Component
 
     public function render()
     {
-        return view('livewire.financing-page');
+        return view('livewire.financing-page')->layout('layouts.guest');
     }
 }

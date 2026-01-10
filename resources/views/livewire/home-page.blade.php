@@ -202,7 +202,8 @@
                             <i class="lucide lucide-{{ $config['icon'] }} w-7 h-7 text-primary group-hover:text-primary-foreground" data-lucide="{{ $config['icon'] }}"></i>
                         </div>
                         <h3 class="font-semibold text-foreground mb-1">{{ $type }}</h3>
-                        <p class="text-sm text-muted-foreground mb-2">{{ $config['description'] }}</p>
+                        <h3 class="font-semibold text-foreground mb-1">Properties </h3>
+                        {{--<p class="text-sm text-muted-foreground mb-2">{{ $config['description'] }}</p>--}}
                         <p class="text-sm font-medium text-primary">{{ $count }}+ listings</p>
                     </button>
                 @empty
