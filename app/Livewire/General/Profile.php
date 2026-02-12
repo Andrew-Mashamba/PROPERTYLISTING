@@ -49,12 +49,18 @@ class Profile extends Component
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'business_type' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:50',
+            'address' => 'nullable|string|max:255',
+            'bio' => 'nullable|string|max:1000',
         ]);
 
         auth()->user()->update([
             'name' => $this->name,
             'email' => $this->email,
             'business_type' => $this->business_type,
+            'phone' => $this->phone,
+            'address' => $this->address,
+            'bio' => $this->bio,
         ]);
 
         session()->flash('message', 'Profile updated successfully.');

@@ -58,6 +58,7 @@ Route::get('/login', function () {
 
 // System Dashboard
 Route::get('/system', App\Livewire\SystemDashboard::class)->name('system')->middleware('auth');
+Route::get('/system/find-me-a-home', App\Livewire\Admin\HomeFinderRequests::class)->name('admin.home-finder')->middleware('auth');
 
 // SELLER ROUTES
 Route::middleware(['auth'])->group(function () {
@@ -83,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
     
     // Agent Tools
     Route::get('/system/agent/assigned-properties', App\Livewire\Agent\AssignedProperties::class)->name('agent.assigned-properties');
+    Route::get('/system/agent/home-finder-leads', App\Livewire\Agent\HomeFinderLeads::class)->name('agent.home-finder-leads');
     
     // Landlord Tools
     Route::get('/system/landlord/rentals', App\Livewire\Landlord\Rentals::class)->name('landlord.rentals');

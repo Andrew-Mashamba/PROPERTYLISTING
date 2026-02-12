@@ -463,6 +463,17 @@
                         <span class="nav-text">Overview</span>
                     </a>
                 </div>
+
+        {{-- Menu to only deal with find me a home for savanna users only --}}
+            @if(Auth::user()->user_type === 'savanna')
+            <div class="nav-section">
+                <div class="nav-section-title">🏠 Home Finder requests</div>
+                <a href="/system/find-me-a-home" class="nav-item">
+                    <i class="fas fa-home nav-item-icon"></i>
+                    <span class="nav-item-text">Home Finder requests</span>
+                </a>
+            </div>
+            @endif
                 
                 @if(Auth::check() && (Auth::user()->user_type === 'seller' || Auth::user()->user_type === 'savanna'))
                 <div class="nav-section">

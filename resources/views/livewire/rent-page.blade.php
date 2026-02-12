@@ -11,6 +11,24 @@
             <p class="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
                 Discover rental properties that fit your budget and lifestyle
             </p>
+            {{-- these message must be dismissible after 5 seconds, using livewire --}}
+            @if (session()->has('homeFinderMessage'))
+                <div class="max-w-2xl mx-auto mb-6 bg-green-50/90 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+                    {{ session('homeFinderMessage') }}
+                    <button type="button" wire:click="dismissHomeFinderMessage" class="text-sm text-gray-500 hover:text-gray-700">
+                        <i class="lucide lucide-x w-4 h-4"></i>
+                    </button>
+                </div>
+            @endif
+
+            @if (session()->has('tcraMessage'))
+                <div class="max-w-2xl mx-auto mb-6 bg-red-50/90 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                    {{ session('tcraMessage') }}
+                    <button type="button" wire:click="dismissTcraMessage" class="text-sm text-gray-500 hover:text-gray-700">
+                        <i class="lucide lucide-x w-4 h-4"></i>
+                    </button>
+                </div>
+            @endif
 
             <div class="max-w-4xl mx-auto">
                 <div class="bg-background rounded-xl p-4 shadow-2xl" x-data="{ showFilters: false }">
@@ -99,12 +117,20 @@
         </div>
     </div>
 
-                    <div class="mt-4 text-center">
-                        <button @click="showFilters = !showFilters" class="text-sm text-primary hover:underline">
+                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <button type="button" wire:click="openHomeFinderModal" wire:loading.attr="disabled" class="w-full sm:w-auto h-11 px-6 rounded-md bg-primary text-primary-foreground font-semibold">
+                            <span wire:loading.remove wire:target="openHomeFinderModal">
+                                Or request a based on your needs here
+                            </span>
+                            <span wire:loading wire:target="openHomeFinderModal">
+                                Please wait...
+                            </span>
+                        </button>
+                        <button type="button" @click="showFilters = !showFilters" class="text-sm text-primary hover:underline">
                             <span x-show="!showFilters">Show Advanced Filters</span>
                             <span x-show="showFilters">Hide Advanced Filters</span>
                         </button>
-                </div>
+                    </div>
                 </div>
             </div>
                                 </div>
@@ -137,6 +163,217 @@
             @endif
         </div>
     </section>
+
+    {{-- Image Gallery Modal --}}
+    @if($showHomeFinderModal)
+        <div class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4 overflow-y-auto" wire:click="closeHomeFinderModal">
+            <div class="bg-background rounded-2xl max-w-3xl w-full shadow-2xl my-8" wire:click.stop>
+                <div class="bg-gradient-to-r from-primary to-primary/80 p-6 rounded-t-2xl">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-xl font-bold text-primary-foreground">Find me a home</h3>
+                            <p class="text-primary-foreground/80 text-sm">Step {{ $homeFinderStep }} of 3</p>
+                        </div>
+                        <button wire:click="closeHomeFinderModal" class="text-primary-foreground bg-none border-none cursor-pointer">
+                            <i class="lucide lucide-x w-6 h-6"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <form wire:submit.prevent="submitHomeFinder" class="p-6">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="flex-1 h-1 rounded-full {{ $homeFinderStep >= 1 ? 'bg-primary' : 'bg-border' }}"></div>
+                        <div class="flex-1 h-1 rounded-full {{ $homeFinderStep >= 2 ? 'bg-primary' : 'bg-border' }}"></div>
+                        <div class="flex-1 h-1 rounded-full {{ $homeFinderStep >= 3 ? 'bg-primary' : 'bg-border' }}"></div>
+                    </div>
+
+                    @if($homeFinderStep === 1)
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-foreground">Contact details</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Name *</label>
+                                    <input type="text" wire:model="homeFinderName" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                    @error('homeFinderName') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Phone *</label>
+                                    <input type="tel" wire:model="homeFinderPhone" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                    @error('homeFinderPhone') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Email *</label>
+                                    <input type="email" wire:model="homeFinderEmail" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                    @error('homeFinderEmail') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($homeFinderStep === 2)
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-foreground">Location (TCRA postcode)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Region *</label>
+                                    <select wire:model.change="homeFinderRegionId" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                        <option value="">Select region</option>
+                                        @foreach($homeFinderRegions as $region)
+                                            <option value="{{ $region['id'] }}">{{ $region['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('homeFinderRegionId') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">District *</label>
+                                    <select wire:model.change="homeFinderDistrictId" class="w-full border border-border rounded-lg px-3 py-2 bg-background" @if(empty($homeFinderRegionId)) disabled @endif>
+                                        <option value="">Select district</option>
+                                        @foreach($homeFinderDistricts as $district)
+                                            <option value="{{ $district['id'] }}">{{ $district['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('homeFinderDistrictId') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Ward *</label>
+                                    <select wire:model.change="homeFinderWardId" class="w-full border border-border rounded-lg px-3 py-2 bg-background" @if(empty($homeFinderDistrictId)) disabled @endif>
+                                        <option value="">Select ward</option>
+                                        @foreach($homeFinderWards as $ward)
+                                            <option value="{{ $ward['id'] }}">{{ $ward['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('homeFinderWardId') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Street</label>
+                                    <input type="text" wire:model="homeFinderStreet" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                    @error('homeFinderStreet') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-foreground mb-2">Postcode</label>
+                                <input type="text" wire:model.change="homeFinderPostcode" class="w-full border border-border rounded-lg px-3 py-2 bg-background" readonly>
+                                @error('homeFinderPostcode') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($homeFinderStep === 3)
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-foreground">Property details</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Category *</label>
+                                    <select wire:model.change="homeFinderCategory" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                        <option value="">Select</option>
+                                        <option value="Residential">Residential</option>
+                                        <option value="Commercial">Commercial</option>
+                                        <option value="Land">Land</option>
+                                    </select>
+                                    @error('homeFinderCategory') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Type *</label>
+                                    <select wire:model.change="homeFinderType" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                        <option value="">Select</option>
+                                        @foreach($homeFinderTypeOptions as $typeOption)
+                                            <option value="{{ $typeOption }}">{{ $typeOption }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if($homeFinderCategory === 'Residential')
+                                        <p class="text-xs text-muted-foreground mt-1">Residential options are room or unit based, not by square meter.</p>
+                                    @endif
+                                    @error('homeFinderType') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                @if($homeFinderCategory === 'Residential')
+                                    <div>
+                                        <label class="block text-sm font-semibold text-foreground mb-2">Number of rooms *</label>
+                                        <input type="number" min="1" wire:model="homeFinderRooms" class="w-full border border-border rounded-lg px-3 py-2 bg-background" placeholder="e.g. 3">
+                                        @error('homeFinderRooms') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                    </div>
+                                @endif
+                                @if(in_array($homeFinderCategory, ['Commercial', 'Land'], true))
+                                    <div>
+                                        <label class="block text-sm font-semibold text-foreground mb-2">Area (sqm) *</label>
+                                        <input type="number" min="1" wire:model="homeFinderAreaSqm" class="w-full border border-border rounded-lg px-3 py-2 bg-background" placeholder="e.g. 120">
+                                        @error('homeFinderAreaSqm') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                    </div>
+                                @endif
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Compound type</label>
+                                    <select wire:model.change="homeFinderCompound" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                        <option value="">Any</option>
+                                        <option value="Gated">Gate / fenced</option>
+                                        <option value="Open">Not gated</option>
+                                    </select>
+                                    @error('homeFinderCompound') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Condition</label>
+                                    <select wire:model.change="homeFinderCondition" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                        <option value="any">Any</option>
+                                        <option value="new">New</option>
+                                        <option value="old">Old</option>
+                                    </select>
+                                    @error('homeFinderCondition') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Terms of payment *</label>
+                                    <select wire:model="homeFinderPaymentTerms" class="w-full border border-border rounded-lg px-3 py-2 bg-background">
+                                        <option value="">Select</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Quarterly">Quarterly</option>
+                                        <option value="Yearly">Yearly</option>
+                                    </select>
+                                    @error('homeFinderPaymentTerms') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Budget min</label>
+                                    <input type="number" min="0" wire:model="homeFinderBudgetMin" class="w-full border border-border rounded-lg px-3 py-2 bg-background" placeholder="TZS">
+                                    @error('homeFinderBudgetMin') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-foreground mb-2">Budget max</label>
+                                    <input type="number" min="0" wire:model="homeFinderBudgetMax" class="w-full border border-border rounded-lg px-3 py-2 bg-background" placeholder="TZS">
+                                    @error('homeFinderBudgetMax') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-foreground mb-2">Add note</label>
+                                <textarea rows="3" wire:model="homeFinderNote" class="w-full border border-border rounded-lg px-3 py-2 bg-background resize-y" placeholder="Share any additional details..."></textarea>
+                                @error('homeFinderNote') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="flex flex-col sm:flex-row gap-3 justify-between mt-6 pt-6 border-t border-border">
+                        <div class="flex gap-3">
+                            @if($homeFinderStep > 1)
+                                <button type="button" wire:click="previousHomeFinderStep" class="px-4 py-2 rounded-lg border border-border">
+                                    Back
+                                </button>
+                            @endif
+                        </div>
+                        <div class="flex gap-3 justify-end">
+                            @if($homeFinderStep < 3)
+                                <button type="button" wire:click="nextHomeFinderStep" class="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-semibold">
+                                    Next
+                                </button>
+                            @else
+                                <button type="submit" class="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-semibold">
+                                    Submit request
+                                </button>
+                            @endif
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
 
     {{-- Image Gallery Modal --}}
     @if($showImageModal)

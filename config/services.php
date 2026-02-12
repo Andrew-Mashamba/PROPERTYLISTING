@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'tcra' => [
+        'base_url' => env('TCRA_API_BASE', 'https://www.tcra.go.tz/api'),
+    ],
+
 ];
