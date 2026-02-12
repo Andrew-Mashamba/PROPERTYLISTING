@@ -29,6 +29,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'address',
+        'bio',
         'password',
         'user_type',
         'business_type',
@@ -83,5 +86,20 @@ class User extends Authenticatable
     public function properties(): HasMany
     {
         return $this->hasMany(Property::class);
+    }
+
+    public function homeFinderAssignments(): HasMany
+    {
+        return $this->hasMany(HomeFinderAssignment::class, 'agent_id');
+    }
+
+    public function homeFinderMessagesSent(): HasMany
+    {
+        return $this->hasMany(HomeFinderMessage::class, 'sender_id');
+    }
+
+    public function homeFinderMessagesReceived(): HasMany
+    {
+        return $this->hasMany(HomeFinderMessage::class, 'receiver_id');
     }
 }
